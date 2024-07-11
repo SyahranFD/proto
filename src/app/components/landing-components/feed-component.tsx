@@ -1,13 +1,9 @@
 import ChipExpertise from "@/app/components/common-components/chip-expertise";
-import Image from "next/image";
 import {getFeedProject} from "@/app/lib/services/api/project";
 
 export default async function FeedComponent() {
-
     const dataFeed = await getFeedProject();
 
-    console.log("CHECK DATA FEED")
-    console.log(dataFeed[0])
     return (
         <div className="flex flex-col gap-[20px]  w-full">
             <h1 className="text-primary font-semibold text-2xl">Feed</h1>
@@ -33,10 +29,8 @@ export default async function FeedComponent() {
                             <div className="flex items-center gap-2">
                                 <div className="flex">
                                     {project.participant.map((participant, index) => (
-                                        <div key={index}>
-                                            {/*<Image src={participant.full_name} alt="User Avatar" width={40} height={40}*/}
-                                            {/*       className="rounded-full -ms-3"/>*/}
-                                        </div>
+                                        <img key={index} src={participant.profile_picture} alt="User Avatar" width={40} height={40}
+                                             className="rounded-full -ms-3 w-[40px] h-[40px]"/>
                                     ))}
                                 </div>
 
