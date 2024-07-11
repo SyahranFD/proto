@@ -1,6 +1,8 @@
+"use client"
+
 import { Button } from "@/app/components/ui/button";
 import Image from "next/image";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import { FaDribbble, FaGithub, FaLinkedin } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
 import { MdEdit } from "react-icons/md";
@@ -11,9 +13,13 @@ import {
   TabsTrigger,
 } from "@/app/components/ui/tabs";
 import { ComboboxDemo } from "@/app/components/ui/combobox";
+import { Input } from "@/app/components/ui/input";
 
 const ProfilePage: React.FC = () => {
-
+  const [showAddPlatformForm, setShowAddPlatformForm] = useState(false);
+  const handleAddPlatformClick = () => {
+    setShowAddPlatformForm(true);
+  };
   interface platformData {
     id: number;
     name: string;
@@ -162,7 +168,59 @@ const ProfilePage: React.FC = () => {
                 <h2 className="text-lg font-medium text-black">{item.name}</h2>
               </div>
             ))}
-            <Button
+            {showAddPlatformForm ? (
+              <form className="mt-8 " >
+                <div className="flex flex-col gap-4">
+                  <Input
+                  className="h-auto py-3"
+                    placeholder={"Enter name platform link"}
+                    title={"Name Platform"}
+                    name={"name"}
+                    // value={}
+                    // onChange={}
+                  />
+                  <Input
+                    placeholder={"Enter your platform link"}
+                    title={"Platform Link"}
+                    name={"url"}
+                    // value={}
+                    // onChange={}
+                  />
+                  <div className="flex gap-3 ">
+                    <Button
+                      variant="default"
+                      size="sm"
+                      className="w-auto  h-auto py-3 px-4 cursor-pointer mt-8  rounded-xl"
+                    >
+                
+
+                      <h1 className="font-light text-normal ">Save</h1>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-auto h-auto py-3 px-4 cursor-pointer mt-8 border-solid border-black rounded-xl"
+                    >
+                      <h1 className="font-light text-normal ">Cancel</h1>
+                    </Button>
+                  </div>
+                </div>
+              </form>
+            ) : (
+              <Button
+                variant="default"
+                size="sm"
+                className="w-auto flex gap-2 h-auto py-3 px-4 cursor-pointer mt-8 rounded-xl"
+                onClick={handleAddPlatformClick}
+              >
+                <FiPlus size={20} />
+
+                <h1 className="font-light text-normal ">
+                  Add Portofolio Platform
+                </h1>
+              </Button>
+            )}
+            {/* <Button
               variant="default"
               size="sm"
               className="w-auto flex gap-2 h-auto py-3 px-4 cursor-pointer mt-8 rounded-xl"
@@ -172,7 +230,7 @@ const ProfilePage: React.FC = () => {
               <h1 className="font-light text-normal ">
                 Add Portfolio Platforms
               </h1>
-            </Button>
+            </Button> */}
           </div>
 
           <div className="w-4/5 h-full  pt-12 pl-16">
@@ -291,19 +349,16 @@ const ProfilePage: React.FC = () => {
               </div>
             </div>
             <div className="w-full justify-end inline-flex pr-24 pt-4 ">
-            <Button
-              variant="default"
-              size="sm"
-              className="w-auto flex gap-2 h-auto py-3 px-4 cursor-pointer mt-8 rounded-xl"
-            >
-              <FiPlus size={20} />
+              <Button
+                variant="default"
+                size="sm"
+                className="w-auto flex gap-2 h-auto py-3 px-4 cursor-pointer mt-8 rounded-xl"
+              >
+                <FiPlus size={20} />
 
-              <h1 className="font-light text-normal ">
-                Add Project
-              </h1>
-            </Button>
+                <h1 className="font-light text-normal ">Add Project</h1>
+              </Button>
             </div>
-
           </div>
         </div>
       </div>
