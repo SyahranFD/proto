@@ -27,7 +27,7 @@ const dataNavbar: NavbarProps[] = [
 
 export default function Navbar() {
     return (
-        <div className="w-full flex justify-between items-center px-[120px] py-[20px] border border-b-[#C1C1C1] fixed">
+        <div className="w-full flex justify-between items-center px-[120px] py-[20px] border border-b-[#C1C1C1]">
             <Image
                 src="/assets/svg/logo-horizontal.svg"
                 alt="Logo Horizontal"
