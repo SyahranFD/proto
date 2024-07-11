@@ -87,11 +87,26 @@ async function getProjectById(id: string) : Promise<Project> {
 //     }
 // }
 
+async function sendRequestProject(projectId: string, expertise: string) : Promise<ProjectStore> {
+    try {
+        const res = await instance.post<ProjectStoreResponse>(
+            `/project/${projectId}/send-request`,
+            {
+                expertise: expertise,
+            }
+        );
+        return res.data.data;
+    }catch (err) {
+        throw err;
+    }
+}
+
 
 export {
     getAllProject,
     getFeedProject,
     getCurrentProject,
     getProjectById,
-    getRecommendationProject
+    getRecommendationProject,
+    sendRequestProject
 }
