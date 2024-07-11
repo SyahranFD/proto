@@ -21,10 +21,8 @@ export default async function YourProjectComponent() {
 
                      <div className="flex">
                          {project.participant.map((participant, index) => (
-                             <div key={index}>
-                                 <Image src="/assets/image/user-avatar.png" alt="User Avatar" width={40} height={40}
-                                        className="rounded-full -ms-3"/>
-                             </div>
+                             <img key={index} src={participant.profile_picture} alt="User Avatar" width={40} height={40}
+                                  className="rounded-full -ms-3 w-[40px] h-[40px]"/>
                          ))}
                      </div>
 

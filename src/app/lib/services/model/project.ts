@@ -10,6 +10,8 @@ export interface Project {
     id:              string;
     room_id:         string;
     owner:           string;
+    expertise:       string;
+    owner_profile_picture: string;
     title:           string;
     description:     string;
     max_participant: number;
@@ -28,6 +30,7 @@ export interface Participant {
     id:        string;
     full_name: string;
     expertise: string;
+    profile_picture: string;
 
 }
 

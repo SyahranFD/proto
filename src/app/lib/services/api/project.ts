@@ -40,13 +40,13 @@ async function getCurrentProject() : Promise<Project[]> {
     }
 }
 
-async function getRecommendationProject() : Promise<Project[]> {
+async function getRecommendationProject(category: string) : Promise<Project[]> {
     try {
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
                 params: {
-                    category: "software development",
+                    category: category,
                     limit: 4,
                     is_finish: 0
                 }
