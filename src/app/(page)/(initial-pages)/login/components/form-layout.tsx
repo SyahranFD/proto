@@ -10,6 +10,8 @@ import {useToast} from "@/app/components/ui/use-toast";
 import {IoEye, IoEyeOff} from "react-icons/io5";
 import Loading from "@/app/components/ui/loading";
 import * as yup from "yup";
+import {createSession} from "@/app/lib/services/session/session";
+import {ResponseModelUserLogin} from "@/app/lib/services/model/response-model-user-login";
 
 
 const FormLayoutLogin: React.FC = () => {
@@ -34,7 +36,7 @@ const FormLayoutLogin: React.FC = () => {
     })
 
 
-    const {mutate, isLoading, error} = usePost({
+    const {mutate, isLoading, error} = usePost<ResponseModelUserLogin,object>({
         endpoint: "users/login",
         onError: () => {
             toast({
@@ -43,12 +45,14 @@ const FormLayoutLogin: React.FC = () => {
                 description: "Anda Kesalahan",
             })
         },
-        onSuccess: async () => {
-            router.push("/");
+        onSuccess: async (body) => {
             toast({
                 title: "Message",
                 description: "Anda Berhasil Melakukan Login",
             })
+            await createSession(body.token)
+            router.push("/");
+
         },
     })
 
