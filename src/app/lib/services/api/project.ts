@@ -92,8 +92,10 @@ async function sendRequestProject(projectId: string, expertise: string) : Promis
         const res = await instance.post<ProjectStoreResponse>(
             `/project/${projectId}/send-request`,
             {
-                expertise: expertise,
+                expertise: expertise
             }
+
+            
         );
         return res.data.data;
     }catch (err) {

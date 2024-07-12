@@ -4,6 +4,7 @@ import "./globals.css";
 import {QueryClientProvider} from "react-query";
 import ReactQueryProvider from "@/app/query-provider";
 import {Toaster} from "@/app/components/ui/toaster";
+import ProfilePage from "./(page)/(features-pages)/profile/page";
 
 const poppins = Poppins({ weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], subsets: ["latin", "latin-ext"] });
 
@@ -24,7 +25,7 @@ export default function RootLayout({
 
     <ReactQueryProvider>
 
-      <body className={poppins.className}>{children}  <Toaster /></body>
+      <body className={poppins.className}><ProfilePage/> <Toaster /></body>
     </ReactQueryProvider>
 
     </html>

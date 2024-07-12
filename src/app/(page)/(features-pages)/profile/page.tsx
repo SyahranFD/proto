@@ -1,9 +1,8 @@
-// "use client";
+"use client";
 
 import { Button } from "@/app/components/ui/button";
 import Image from "next/image";
-import React, { ReactNode, useState } from "react";
-import { FaDribbble, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaDribbble, FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
 import { MdEdit } from "react-icons/md";
 import {
@@ -13,15 +12,25 @@ import {
   TabsTrigger,
 } from "@/app/components/ui/tabs";
 import { ComboboxDemo } from "@/app/components/ui/combobox";
+import {
+  getCurrentUser,
+  postPortofolioPlatform,
+} from "@/app/lib/services/api/profile";
+import FormLayoutPortoPlatform from "./components/form-platform";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/app/components/ui/dialog";
+import { Label } from "@/app/components/ui/label";
 import { Input } from "@/app/components/ui/input";
-import { getCurrentUser } from "@/app/lib/services/api/profile";
+import FormLayoutEdit from "./components/form-edit";
 
-async function ProfilePage () {
-  // const [showAddPlatformForm, setShowAddPlatformForm] = useState(false);
-  // const handleAddPlatformClick = () => {
-  //   setShowAddPlatformForm(true);
-  // };
-
+async function ProfilePage() {
   const dataUser = await getCurrentUser();
 
   const tabContents = [
@@ -83,7 +92,9 @@ async function ProfilePage () {
       <div className="w-full h-screen  flex flex-col pb-8">
         <div className="w-full h-[20%] bg-red-100">
           <img
-            src={dataUser.profile_background ?? "/assets/image/banner-profile.png"}
+            src={
+              dataUser.profile_background ?? "/assets/image/banner-profile.png"
+            }
             alt="background profile"
             width={1000}
             height={1000}
@@ -99,62 +110,21 @@ async function ProfilePage () {
             <h2 className="text-2xl font-semibold text-black">
               Portflio Platform
             </h2>
-            {dataUser.portfolio_platform.map((item ,index) => (
+            {dataUser.portfolio_platform.map((item, index) => (
               <div key={index} className="flex gap-2 mt-12">
-                <FaGithub size={24} />
+                {item.name.toLowerCase().includes("github") ? (
+                  <FaGithub size={20} />
+                ) : item.name.toLowerCase().includes("linkedin") ? (
+                  <FaLinkedin size={20} />
+                ) : item.name.toLowerCase().includes("instagram") ? (
+                  <FaInstagram size={20} />
+                ) : (
+                  <FaDribbble size={20} />
+                )}
                 <h2 className="text-lg font-medium text-black">{item.name}</h2>
               </div>
             ))}
-            {/* {showAddPlatformForm ? (
-              <form className="mt-8 ">
-                <div className="flex flex-col gap-4">
-                  <Input
-                    className="h-auto py-3"
-                    placeholder={"Enter name platform link"}
-                    title={"Name Platform"}
-                    name={"name"}
-                    // value={}
-                    // onChange={}
-                  />
-                  <Input
-                    placeholder={"Enter your platform link"}
-                    title={"Platform Link"}
-                    name={"url"}
-                    // value={}
-                    // onChange={}
-                  />
-                  <div className="flex gap-3 ">
-                    <Button
-                      variant="default"
-                      size="sm"
-                      className="w-auto  h-auto py-3 px-4 cursor-pointer mt-8  rounded-xl"
-                    >
-                      <h1 className="font-light text-normal ">Save</h1>
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-auto h-auto py-3 px-4 cursor-pointer mt-8 border-solid border-black rounded-xl"
-                    >
-                      <h1 className="font-light text-normal ">Cancel</h1>
-                    </Button>
-                  </div>
-                </div>
-              </form>
-            ) : (
-              <Button
-                variant="default"
-                size="sm"
-                className="w-auto flex gap-2 h-auto py-3 px-4 cursor-pointer mt-8 rounded-xl"
-                onClick={handleAddPlatformClick}
-              >
-                <FiPlus size={20} />
-
-                <h1 className="font-light text-normal ">
-                  Add Portofolio Platform
-                </h1>
-              </Button>
-            )} */}
+            <FormLayoutPortoPlatform />
           </div>
 
           <div className="w-4/5 h-full  pt-12 pl-16">
@@ -173,18 +143,16 @@ async function ProfilePage () {
               </span>
             </h4>
             <div className="flex flex-wrap gap-3">
-              {dataUser.expertise.map(
-                (item, index) => (
-                  <div
-                    key={index}
-                    className="mt-8 px-16 py-2 bg-blue-50 rounded-3xl"
-                  >
-                    <h2 className="text-lg font-medium text-blue-400">
-                      {item.name}
-                    </h2>
-                  </div>
-                )
-              )}
+              {dataUser.expertise.map((item, index) => (
+                <div
+                  key={index}
+                  className="mt-8 px-16 py-2 bg-blue-50 rounded-3xl"
+                >
+                  <h2 className="text-lg font-medium text-blue-400">
+                    {item.name}
+                  </h2>
+                </div>
+              ))}
             </div>
             <div className="w-full mt-8 flex justify-between">
               <Tabs defaultValue="account" className="w-[400px]">
@@ -273,7 +241,10 @@ async function ProfilePage () {
               </div>
             </div>
             <div className="w-full justify-end inline-flex pr-24 pt-4 ">
-              <Button
+              <FormLayoutEdit/>
+
+              {/* <Button
+
                 variant="default"
                 size="sm"
                 className="w-auto flex gap-2 h-auto py-3 px-4 cursor-pointer mt-8 rounded-xl"
@@ -281,13 +252,14 @@ async function ProfilePage () {
                 <FiPlus size={20} />
 
                 <h1 className="font-light text-normal ">Add Project</h1>
-              </Button>
+                <Dialog/>
+              </Button> */}
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default ProfilePage;
