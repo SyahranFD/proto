@@ -119,7 +119,7 @@ const MessagingPage: React.FC = () => {
         <main className={'flex h-screen'}>
 
 
-            <aside className={'border-r-2 w-[22%] p-7 flex-col flex gap-10'}>
+            <aside className={'w-[22%] p-7 flex-col flex gap-10'}>
 
 
                 <section className={'flex flex-col gap-3'}>
@@ -151,7 +151,7 @@ const MessagingPage: React.FC = () => {
                 </section>
 
 
-                <section className={'flex flex-col gap-7'}>
+                <section className={'flex flex-col gap-3'}>
 
                     {
                         ChatList.map((chat: responseChat) => (
@@ -165,18 +165,17 @@ const MessagingPage: React.FC = () => {
                                 </Avatar>
 
                                 <div className={'flex-1 space-y-2'}>
-                                    <p className={'font-bold line-clamp-1'}>{chat.name}</p>
-                                    <p className={'line-clamp-1 text-sm'}>Hello there nice to meet you. Can i
-                                        join...</p>
+                                    <p className={'font-bold line-clamp-1 '}>{chat.name}</p>
+                                    <p className={'line-clamp-1 text-sm'}>Hello There Nice To Meet You.</p>
 
                                 </div>
 
                                 <div className={'flex  space-y-2 flex-col justify-end items-end'}>
-                                    <p className={'font-bold'}>15:00</p>
+                                    <p className={'font-bold'}>06:10</p>
 
                                     <div
                                         className={' h-7 rounded-full w-7 text-white text-center bg-[#282828] flex items-center justify-center'}>
-                                        <p className="text-xs m-0">12</p>
+                                        <p className="text-xs m-0">1</p>
                                     </div>
 
                                 </div>
@@ -199,9 +198,9 @@ const MessagingPage: React.FC = () => {
 
                             <section className={' flex flex-col space-y-1 justify-center p-5 h-full'}>
                                 <h1 className={
-                                    'font-bold text-xl'
-                                }>Dewa Dapa Spero</h1>
-                                <p className={'text-sm text-[#A2A2A2]'}>Fullstack Developer (17)</p>
+                                    'font-bold text-lg'
+                                }>{ChatList.length != 0 ?ChatList[0].name:""}</h1>
+                                <p className={'text-sm text-[#A2A2A2] mt-4'}>Fullstack Developer</p>
                             </section>
 
                         </div>
