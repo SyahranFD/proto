@@ -1,9 +1,9 @@
 "use client"
 import {useFetch} from "@/app/lib/services/api/actions";
 import {ResponseModelProjectDetail} from "@/app/lib/services/model/model-response-project-detail";
-import {doc, setDoc} from "@firebase/firestore";
+import {addDoc, collection, doc, serverTimestamp, setDoc} from "@firebase/firestore";
 import {firestore} from "../../../../../../firebase";
-import { verifySessionUserID} from "@/app/lib/services/session/session";
+import {verifySessionName, verifySessionUserID} from "@/app/lib/services/session/session";
 import {useState} from "react";
 import Loading from "@/app/components/ui/loading";
 
@@ -16,20 +16,25 @@ export default function DetailProject({params}: { params: { id: string } }) {
         }
     )
 
+    const mesageRefChat = collection(firestore, "chats");
 
 
-const handleSubmit = async (evt:any) => {
+const handleSubmit = async (evt:any,room_id:string | undefined) => {
     evt.preventDefault();
     setLoading(true);
     try {
 
-        const {token} = await verifySessionUserID()
+        const {token:user_id} = await verifySessionUserID()
+        const {token:nama} = await verifySessionName()
 
-            const docRef = doc(firestore, 'users', token);
-            await setDoc(docRef, {
-                name:token,
-                avatarUrl:token,
-            });
+
+        await addDoc(mesageRefChat, {
+            name:nama,
+            avatarUrl:"https://ui-avatars.com/api/?name=daffa+&color=FFFFF&background=73326a&size=128",
+            room_id:room_id,
+            user_session_id:user_id
+        })
+
 
 
     } catch (error) {
@@ -60,7 +65,7 @@ const handleSubmit = async (evt:any) => {
 
 
                     <button disabled={loading} onClick={(event) => {
-                        handleSubmit(event)
+                        handleSubmit(event,dataProject?.data.room_id)
                     }} className="bg-primary px-[18px] py-[5px] rounded-[16px]">
                         {
                             loading ? <Loading/> : <h3 className="font-semibold text-white text-sm">Group Chat</h3>
