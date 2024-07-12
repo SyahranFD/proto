@@ -53,7 +53,7 @@ const FormLayoutLogin: React.FC = () => {
                 title: "Message",
                 description: "Anda Berhasil Melakukan Login",
             })
-            await createSession(body.token,body.data.id)
+            await createSession(body.token,body.data.id,body.data.full_name)
             router.push("/");
         },
     })
