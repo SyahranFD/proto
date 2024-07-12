@@ -1,28 +1,56 @@
-import ChipExpertise from "@/app/components/common-components/chip-expertise-click";
-import Image from "next/image";
-import {getProjectById, getRecommendationProject} from "@/app/lib/services/api/project";
-import ClientAction from "@/app/(page)/(features-pages)/project/[id]/components/client-action";
-import Link from "next/link";
+"use client"
+import {useFetch} from "@/app/lib/services/api/actions";
+import {ResponseModelProjectDetail} from "@/app/lib/services/model/model-response-project-detail";
+import {doc, setDoc} from "@firebase/firestore";
+import {firestore} from "../../../../../../firebase";
+import { verifySessionUserID} from "@/app/lib/services/session/session";
+import {useState} from "react";
+import Loading from "@/app/components/ui/loading";
 
-export default async function DetailProject({params} : {params: {id: string}}) {
+export default function DetailProject({params}: { params: { id: string } }) {
 
-    const dataProject = await getProjectById(params.id)
+    const [loading, setLoading] = useState(false);
+    const {data:dataProject,isLoading} = useFetch<ResponseModelProjectDetail>(
+        {
+            endpoint: `/project/show/${params.id}`,
+        }
+    )
 
-    const similarProject = await getRecommendationProject(dataProject.category.toLowerCase())
 
+
+const handleSubmit = async (evt:any) => {
+    evt.preventDefault();
+    setLoading(true);
+    try {
+
+        const {token} = await verifySessionUserID()
+
+            const docRef = doc(firestore, 'users', token);
+            await setDoc(docRef, {
+                name:token,
+                avatarUrl:token,
+            });
+
+
+    } catch (error) {
+
+    }
+    setLoading(false);
+
+}
     return (
         <div className="flex flex-col h-[90vh] justify-between px-[130px] py-[65px]">
             <div className="flex justify-between">
                 <div className="flex flex-col gap-[25px] w-[50%]">
                     <div>
-                        <h2 className="font-semibold text-[#7D7D7D] text-xl">{dataProject.category.toUpperCase()}</h2>
-                        <h1 className="font-semibold text-2xl text-primary">{dataProject.title}</h1>
-                        <p className="font-light text-[#7A7A7A]">{dataProject.description}</p>
+                        <h2 className="font-semibold text-[#7D7D7D] text-xl">{dataProject?.data.category.toUpperCase()}</h2>
+                        <h1 className="font-semibold text-2xl text-primary">{dataProject?.data.title}</h1>
+                        <p className="font-light text-[#7A7A7A]">{dataProject?.data.description}</p>
                     </div>
                     <div>
                         <h2 className="font-semibold text-xl text-primary">Tools Used</h2>
                         <ul className="list-disc pl-5">
-                            {dataProject.tool.map((tool, index) => (
+                            {dataProject?.data.tool.map((tool, index) => (
                                     <li key={index}>{tool.name}</li>
                                 )
                             )
@@ -31,11 +59,14 @@ export default async function DetailProject({params} : {params: {id: string}}) {
                     </div>
 
 
-                    <Link href={`/messages?${dataProject.room_id}`}>
-                        <button className="bg-primary px-[18px] py-[5px] rounded-[16px]">
-                            <h3 className="font-semibold text-white text-sm">Group Chat</h3>
-                        </button>
-                    </Link>
+                    <button disabled={loading} onClick={(event) => {
+                        handleSubmit(event)
+                    }} className="bg-primary px-[18px] py-[5px] rounded-[16px]">
+                        {
+                            loading ? <Loading/> : <h3 className="font-semibold text-white text-sm">Group Chat</h3>
+                        }
+
+                    </button>
                 </div>
 
                 <div>
@@ -43,12 +74,12 @@ export default async function DetailProject({params} : {params: {id: string}}) {
                         <h2 className="font-medium text-xl text-primary mb-5">Requested By</h2>
 
                         <div className="flex gap-3">
-                            <img src={dataProject.owner_profile_picture} alt="User Avatar" width={40} height={40}
+                            <img src={dataProject?.data.owner_profile_picture} alt="User Avatar" width={40} height={40}
                                  className="rounded-full w-[40px] h-[40px]"/>
 
                             <div className="flex flex-col">
-                                <h2 className="font-medium text-primary">{dataProject.owner}</h2>
-                                <p className=" text-primary text-sm">{dataProject.expertise}</p>
+                                <h2 className="font-medium text-primary">{dataProject?.data.owner}</h2>
+                                <p className=" text-primary text-sm">{dataProject?.data.owner_job}</p>
                             </div>
                         </div>
                     </div>
@@ -57,11 +88,11 @@ export default async function DetailProject({params} : {params: {id: string}}) {
                         <div className="flex gap-5">
                             <h2 className="font-medium text-xl text-primary mb-5">Participants</h2>
 
-                            <h3 className="text-[#989898]">{`${dataProject.participant.length}/${dataProject.max_participant}`}</h3>
+                            <h3 className="text-[#989898]">{`${dataProject?.data.participant.length}/${dataProject?.data.max_participant}`}</h3>
                         </div>
 
                         <div className="flex flex-col gap-6">
-                            {dataProject.participant.map((participant, index) => (
+                            {dataProject?.data.participant.map((participant, index) => (
                                 <div key={index} className="flex gap-3">
                                     <img src={participant.profile_picture} alt="User Avatar" width={40} height={40}
                                          className="rounded-full w-[40px] h-[40px]"/>

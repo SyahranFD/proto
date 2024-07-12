@@ -32,7 +32,7 @@ export function useFetch<T>({ endpoint, params }: ActionProps<T>) {
   });
 }
 
-export function usePost<T, R>({
+export function usePostAuth<T, R>({
   endpoint,
   onError,
   onSuccess,
@@ -46,10 +46,40 @@ export function usePost<T, R>({
     onSuccess,
   });
 }
+
+export function usePost<T, R>({
+                                    endpoint,
+                                    onError,
+                                    onSuccess,
+                                  }: ActionProps<T>) {
+  return useMutation<T, AxiosError, R>({
+    mutationFn: async (body: R) => {
+      const {token} = await verifySession()
+      const res = await instance.post<T>(endpoint, body, {
+        headers:{
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+      });
+      return res.data;
+    },
+    onError,
+    onSuccess,
+  });
+}
 export function usePut<T, R>({ endpoint, onError, onSuccess }: ActionProps<T>) {
   return useMutation<T, AxiosError, R>({
     mutationFn: async (body: R) => {
-      const res = await instance.put<T>(endpoint, body, {});
+
+      const {token} = await verifySession()
+      const res = await instance.put<T>(endpoint, body, {
+        headers:{
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+      });
       return res.data;
     },
     onError,

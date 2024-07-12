@@ -234,13 +234,20 @@ async function storeProject(request: ProjectRequest ) : Promise<ProjectStore> {
 
 async function sendRequestProject(projectId: string, expertise: string) : Promise<ProjectStore> {
     try {
+        const {token} = await verifySession()
         const res = await instance.post<ProjectStoreResponse>(
             `/project/${projectId}/send-request`,
+
             {
                 expertise: expertise
+            },
+            {
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
             }
-
-            
         );
         return res.data.data;
     }catch (err) {
