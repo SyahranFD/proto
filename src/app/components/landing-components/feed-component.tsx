@@ -5,9 +5,9 @@ export default async function FeedComponent() {
     const dataFeed = await getFeedProject();
 
     return (
-        <div className="flex flex-col gap-[20px]  w-full">
+        <div className="flex flex-col mt-5 gap-[20px]  w-full">
             <h1 className="text-primary font-semibold text-2xl">Feed</h1>
-            <div className="grid grid-cols-3 my-5 gap-10">
+            <div className="grid grid-cols-3 gap-10">
                 {dataFeed.map((project, index) => (
                     <div key={index} className="bg-white  shadow-md flex flex-col justify-between gap-[20px]">
                         <img src={project.image} alt="Project Mockup" width={300} height={200}

@@ -17,7 +17,7 @@ export default async function RecommendForYou() {
                         <div className="flex flex-col justify-between items-start">
                             <div className="flex flex-col">
                                 <h2 className="text-primary font-medium ">{project.title}</h2>
-                                <h3 className="text-[#A9A9A9] text-sm">{project.category}</h3>
+                                <h3 className="text-[#A9A9A9] mt-2 text-sm">{project.category}</h3>
                             </div>
 
                             <div className="flex gap-5">

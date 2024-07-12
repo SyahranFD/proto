@@ -66,6 +66,7 @@ export async function verifySessionName() {
 
 
 
-export async function deleteSession() {
-
+export async function deleteSession(data:string) {
+    cookies().delete(data)
+    redirect('/login');
 }

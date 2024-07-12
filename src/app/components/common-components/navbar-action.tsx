@@ -9,8 +9,8 @@ import {
 } from "@/app/components/ui/dropdown-menu";
 import Image from "next/image";
 import Link from "next/link";
-import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
+import {deleteSession} from "@/app/lib/services/session/session";
 
 const NavbarAction:React.FC = () => {
  return (
@@ -26,13 +26,16 @@ const NavbarAction:React.FC = () => {
 
                  </Link>
              </DropdownMenuLabel>
-             <DropdownMenuLabel onClick={()=>{
 
+             <DropdownMenuLabel onClick={()=>{
+                 deleteSession("user-token");
                  redirect('/login');
              }}>
+                 <Link href="/login">
                  Logout
-
+         </Link>
              </DropdownMenuLabel>
+
          </DropdownMenuContent>
      </DropdownMenu>
  );
