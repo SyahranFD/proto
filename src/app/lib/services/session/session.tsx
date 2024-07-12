@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 
 
 
-export async function createSession(userToken: string,userID: string) {
+export async function createSession(userToken: string,userID: string,name:string) {
 
     cookies().set('user-token',userToken , {
         httpOnly: true,
@@ -21,7 +21,12 @@ export async function createSession(userToken: string,userID: string) {
         path: '/',
     });
 
-
+    cookies().set('user-name',name , {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'lax',
+        path: '/',
+    });
 
     redirect('/');
 }
@@ -47,6 +52,18 @@ export async function verifySessionUserID() {
 
     return { isAuth: true, token: cookie };
 }
+
+export async function verifySessionName() {
+    const cookie = cookies().get('user-name')?.value;
+
+
+    if (!cookie) {
+        redirect('/login');
+    }
+
+    return { isAuth: true, token: cookie };
+}
+
 
 
 export async function deleteSession() {
