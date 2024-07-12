@@ -12,6 +12,7 @@ import Loading from "@/app/components/ui/loading";
 import * as yup from "yup";
 import {createSession} from "@/app/lib/services/session/session";
 import {ResponseModelUserLogin} from "@/app/lib/services/model/response-model-user-login";
+import {getItem, setItem} from "@/app/lib/services/session/local-storage";
 
 
 const FormLayoutLogin: React.FC = () => {
@@ -46,12 +47,15 @@ const FormLayoutLogin: React.FC = () => {
             })
         },
         onSuccess: async (body) => {
+
+            setItem("user-token",body.token)
             toast({
                 title: "Message",
                 description: "Anda Berhasil Melakukan Login",
             })
             await createSession(body.token)
             router.push("/");
+            //
 
         },
     })
