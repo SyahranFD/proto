@@ -42,10 +42,7 @@ export default async function DetailProject(
                         </ul>
                     </div>
 
-                    <div>
-                        <h2 className="font-semibold text-xl text-primary mb-4">Expertise</h2>
-                        <ClientAction skills={dataProject.skill} projectId={dataProject.id} query={query} isJoined={dataProject.is_joined} isOwner={dataProject.is_owner} />
-                    </div>
+                    <ClientAction skills={dataProject.skill} projectId={dataProject.id} query={query} isJoined={dataProject.is_joined} isOwner={dataProject.is_owner} />
 
 
                 </div>
@@ -60,7 +57,7 @@ export default async function DetailProject(
 
                             <div className="flex flex-col">
                                 <h2 className="font-medium text-primary">{dataProject.owner}</h2>
-                                <p className=" text-primary text-sm">{dataProject.expertise}</p>
+                                <p className=" text-primary text-sm">{dataProject.owner_job}</p>
                             </div>
                         </div>
                     </div>
@@ -80,7 +77,7 @@ export default async function DetailProject(
 
                                 <div className="flex flex-col">
                                     <h2 className="font-medium text-primary">{participant.full_name}</h2>
-                                    <p className=" text-primary text-sm">${participant.expertise}</p>
+                                    <p className=" text-primary text-sm">{participant.expertise}</p>
                                 </div>
                             </div>
                         ))}
@@ -93,7 +90,7 @@ export default async function DetailProject(
                 <div>
                     <h2 className="font-semibold text-xl text-primary mb-4">Find Similar Project</h2>
 
-                    <div className="grid grid-cols-4">
+                    <div className="grid grid-cols-3 gap-8">
                         {similarProject.map((project, index) => (
                             <div key={index} className="bg-white p-[15px] shadow-md flex justify-between gap-[20px]">
 

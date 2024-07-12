@@ -1,5 +1,6 @@
 
 "use server"
+
 import instance from "@/app/lib/services/instance/instance";
 import {Project, ProjectResponse} from "@/app/lib/services/model/project";
 import {getItem} from "@/app/lib/services/session/local-storage";
@@ -79,7 +80,7 @@ async function getSoftwareDevelopmentProject() : Promise<Project[]> {
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
-                
+
                 headers:{
                     "Content-Type": "application/json",
                     "Accept": "application/json",
@@ -203,7 +204,7 @@ async function getRecommendationProject(category: string) : Promise<Project[]> {
                 },
                 params: {
                     category: category,
-                    limit: 4,
+                    limit: 3,
                     is_finish: 0
                 }
             }
@@ -256,6 +257,29 @@ async function sendRequestProject(projectId: string, expertise: string) : Promis
     try {
         const {token} = await verifySession()
         const res = await instance.post<ProjectStoreResponse>(
+            `/project/${projectId}/send-request`,
+
+            {
+                expertise: expertise
+            },
+            {
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
+        );
+        return res.data.data;
+    }catch (err) {
+        throw err;
+    }
+}
+
+async function uploadImageProject(projectId: string, expertise: string) : Promise<ProjectStore> {
+    try {
+        const {token} = await verifySession()
+        const res = await instance.put<ProjectStoreResponse>(
             `/project/${projectId}/send-request`,
 
             {
