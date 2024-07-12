@@ -26,3 +26,8 @@ export async function verifySession() {
 
     return { isAuth: true, token: cookie };
 }
+
+
+export async function deleteSession() {
+
+}
