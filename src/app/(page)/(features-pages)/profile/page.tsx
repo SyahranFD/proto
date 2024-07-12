@@ -206,12 +206,10 @@ function ProfilePage() {
                                   }}
                                   className="absolute"
                                 >
-                                  <Image
+                                  <img
                                     src={collaborator.imageSrc}
                                     alt="project people"
-                                    width={35}
-                                    height={35}
-                                    className="rounded-full"
+                                    className="rounded-full w-[35px] h-[35px]"
                                   />
                                 </div>
                               ))}
