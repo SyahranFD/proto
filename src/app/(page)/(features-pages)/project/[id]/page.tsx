@@ -1,13 +1,30 @@
 import ChipExpertise from "@/app/components/common-components/chip-expertise";
 import Image from "next/image";
-import {getProjectById, getRecommendationProject} from "@/app/lib/services/api/project";
+import {getProjectById, getRecommendationProject, sendRequestProject} from "@/app/lib/services/api/project";
 import SkillList from "@/app/(page)/(features-pages)/project/[id]/components/skill-list";
 
-export default async function DetailProject({params} : {params: {id: string}}) {
+export default async function DetailProject(
+    {params, searchParams} : {
+        params: {id: string},
+        searchParams?: {
+            query?: string
+            page?: string
+        }
+    }
+) {
+
+    const query = searchParams?.query || '';
+    const currentPage = Number(searchParams?.page) || 1;
 
     const dataProject = await getProjectById(params.id)
 
     const similarProject = await getRecommendationProject(dataProject.category.toLowerCase())
+
+    const sendRequest = async () => {
+        await sendRequestProject(dataProject.id, query)
+    }
+
+    console.log("CURRENT QUERY: " + query)
 
     return (
         <div className="flex flex-col h-[90vh] justify-between px-[130px] py-[65px]">
@@ -31,16 +48,10 @@ export default async function DetailProject({params} : {params: {id: string}}) {
 
                     <div>
                         <h2 className="font-semibold text-xl text-primary mb-4">Expertise</h2>
-                        <SkillList skills={dataProject.skill} />
+                        <SkillList skills={dataProject.skill} projectId={dataProject.id} query={query} />
                     </div>
 
 
-                    {dataProject.is_joined
-                            ? <div></div>
-                            : <button className="bg-primary px-[18px] py-[5px] rounded-[16px]">
-                                <h3 className="font-semibold text-white text-sm">Send Request</h3>
-                            </button>
-                    }
                 </div>
 
                 <div>
