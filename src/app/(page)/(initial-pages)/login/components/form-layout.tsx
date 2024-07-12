@@ -4,7 +4,7 @@ import React, {ChangeEvent, useState} from 'react';
 import {Input} from "@/app/components/ui/input";
 import {Button} from "@/app/components/ui/button";
 import {useFormik} from "formik";
-import {usePost} from "@/app/lib/services/api/actions";
+import {usePost, usePostAuth} from "@/app/lib/services/api/actions";
 import {useRouter} from "next/navigation";
 import {useToast} from "@/app/components/ui/use-toast";
 import {IoEye, IoEyeOff} from "react-icons/io5";
@@ -37,9 +37,10 @@ const FormLayoutLogin: React.FC = () => {
     })
 
 
-    const {mutate, isLoading, error} = usePost<ResponseModelUserLogin,object>({
+    const {mutate, isLoading, error} = usePostAuth<ResponseModelUserLogin,object>({
         endpoint: "users/login",
-        onError: () => {
+        onError: (error) => {
+            console.log(error)
             toast({
                 variant: "destructive",
                 title: "Message",
@@ -48,15 +49,12 @@ const FormLayoutLogin: React.FC = () => {
         },
         onSuccess: async (body) => {
 
-            setItem("user-token",body.token)
             toast({
                 title: "Message",
                 description: "Anda Berhasil Melakukan Login",
             })
-            await createSession(body.token)
+            await createSession(body.token,body.data.id)
             router.push("/");
-            //
-
         },
     })
 
