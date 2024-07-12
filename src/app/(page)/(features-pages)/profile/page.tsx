@@ -17,9 +17,16 @@ import {
 } from "@/app/lib/services/api/profile";
 import FormLayoutPortoPlatform from "./components/form-platform";
 import FormLayoutEdit from "./components/form-edit";
+import {useFetch} from "@/app/lib/services/api/actions";
+import {CurrentUserResponse} from "@/app/lib/services/model/current_user";
 
-async function ProfilePage() {
-  const dataUser = await getCurrentUser();
+function ProfilePage() {
+
+
+  const {data:dataUser,isLoading} = useFetch<CurrentUserResponse>({
+    endpoint:     "/users/show",
+  })
+
 
   const tabContents = [
     {
@@ -67,7 +74,7 @@ async function ProfilePage() {
       <div className=" absolute right-28 top-28">
         <img
           className="rounded-full border-2 h-[280px] border-solid border-white shadow-xl"
-          src={dataUser.profile_picture ?? "/assets/image/user-avatar.png"}
+          src={dataUser?.data.profile_picture ?? "/assets/image/user-avatar.png"}
           alt="profile picture"
           width={280}
           height={280}
@@ -81,7 +88,7 @@ async function ProfilePage() {
         <div className="w-full h-[20%] bg-red-100">
           <img
             src={
-              dataUser.profile_background ?? "/assets/image/banner-profile.png"
+              dataUser?.data.profile_background ?? "/assets/image/banner-profile.png"
             }
             alt="background profile"
             width={1000}
@@ -98,7 +105,7 @@ async function ProfilePage() {
             <h2 className="text-2xl font-semibold text-black">
               Portflio Platform
             </h2>
-            {dataUser.portfolio_platform.map((item, index) => (
+            {dataUser?.data.portfolio_platform.map((item, index) => (
               <div key={index} className="flex gap-2 mt-12">
                 {item.name.toLowerCase().includes("github") ? (
                   <FaGithub size={20} />
@@ -119,19 +126,19 @@ async function ProfilePage() {
             <div className="w-full flex flex-col items-start">
               <div className="flex gap-4 items-center mb-4">
                 <h2 className="text-4xl font-medium text-black">
-                  {dataUser.full_name}
+                  {dataUser?.data.full_name}
                 </h2>
                 <MdEdit size={32} />
               </div>
             </div>
             <h4 className="text-gray-400 text-[24px] flex justify-start gap-3">
-              {dataUser.job}{" "}
+              {dataUser?.data.job}{" "}
               <span className="text-gray-400 text-[24px] font-normal">
-                ({dataUser.age})
+                ({dataUser?.data.age})
               </span>
             </h4>
             <div className="flex flex-wrap gap-3">
-              {dataUser.expertise.map((item, index) => (
+              {dataUser?.data.expertise.map((item, index) => (
                 <div
                   key={index}
                   className="mt-8 px-16 py-2 bg-blue-50 rounded-3xl"

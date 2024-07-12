@@ -2,6 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { FaPlus } from "react-icons/fa6";
+import {
+    DropdownMenu, DropdownMenuCheckboxItem,
+    DropdownMenuContent,
+    DropdownMenuLabel, DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from "@/app/components/ui/dropdown-menu";
+import {cookies} from "next/headers";
+import {redirect} from "next/navigation";
+import {deleteSession} from "@/app/lib/services/session/session";
+import NavbarAction from "@/app/components/common-components/navbar-action";
 
 interface NavbarProps {
     href: string;
@@ -48,9 +58,11 @@ export default function Navbar() {
             <div className="flex items-center gap-[35px]">
                 <IoIosNotificationsOutline className="text-primary" size={32}/>
 
-                <Link href="/profile">
-                    <Image src="/assets/image/user-avatar.png" alt="User Avatar" width={40} height={40} className="rounded-full" />
-                </Link>
+                {/*<Link href="/profile">*/}
+
+                 <NavbarAction/>
+
+                {/*</Link>*/}
 
                 <Link href="/project-collaborate">
                     <button className="bg-primary flex items-center gap-3 px-[20px] py-[10px] rounded-[8px]">

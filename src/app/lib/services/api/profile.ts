@@ -1,11 +1,21 @@
 import instance from "@/app/lib/services/instance/instance";
 import { useFetch, usePost, usePut } from '@/app/lib/services/api/actions';
 import { PortofolioResponse, CurrentUserResponse, UserData } from '@/app/lib/services/model/current_user';
+import {verifySession} from "@/app/lib/services/session/session";
 
 async function getCurrentUser() : Promise<UserData> {
     try {
+
+        const {token} = await verifySession()
         const res = await instance.get<CurrentUserResponse>(
             `/users/show`,
+            {
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
         );
         return res.data.data;
     }catch (err) {

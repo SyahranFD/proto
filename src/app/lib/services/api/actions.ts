@@ -1,6 +1,7 @@
 import instance from "@/app/lib/services/instance/instance";
 import { AxiosError } from "axios";
 import { useMutation, useQuery } from "react-query";
+import {verifySession} from "@/app/lib/services/session/session";
 
 interface ActionProps<T> {
   endpoint: string;
@@ -12,8 +13,14 @@ interface ActionProps<T> {
 export function useFetch<T>({ endpoint, params }: ActionProps<T>) {
   return useQuery<T, AxiosError>({
     queryFn: async () => {
+
+      const {token} = await verifySession()
       const res = await instance.get<T>(endpoint, {
-        headers: {},
+        headers:{
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
         params,
       });
 
