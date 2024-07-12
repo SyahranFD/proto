@@ -105,23 +105,23 @@ async function getProjectById(id: string) : Promise<Project> {
     }
 }
 
-// async function storeProject(request: ProjectRequest ) : Promise<ProjectStore> {
-//     try {
-//         const res = await instance.post<ProjectStoreResponse>(
-//             `/project/store`,
-//             {
-//                 title: request.title,
-//                 description: request.description,
-//                 max_participant: request.max_participant,
-//                 category: request.category,
-//                 is_paid: request.is_paid
-//             }
-//         );
-//         return res.data.data;
-//     }catch (err) {
-//         throw err;
-//     }
-// }
+async function storeProject(request: ProjectRequest ) : Promise<ProjectStore> {
+    try {
+        const res = await instance.post<ProjectStoreResponse>(
+            `/project/store`,
+            {
+                title: request.title,
+                description: request.description,
+                max_participant: request.max_participant,
+                category: request.category,
+                is_paid: request.is_paid
+            }
+        );
+        return res.data.data;
+    }catch (err) {
+        throw err;
+    }
+}
 
 async function sendRequestProject(projectId: string, expertise: string) : Promise<ProjectStore> {
     try {
@@ -146,5 +146,6 @@ export {
     getCurrentProject,
     getProjectById,
     getRecommendationProject,
-    sendRequestProject
+    sendRequestProject,
+    storeProject
 }
