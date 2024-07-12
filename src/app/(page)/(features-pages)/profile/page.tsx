@@ -1,4 +1,4 @@
-"use client"
+// "use client";
 
 import { Button } from "@/app/components/ui/button";
 import Image from "next/image";
@@ -14,78 +14,15 @@ import {
 } from "@/app/components/ui/tabs";
 import { ComboboxDemo } from "@/app/components/ui/combobox";
 import { Input } from "@/app/components/ui/input";
+import { getCurrentUser } from "@/app/lib/services/api/profile";
 
-const ProfilePage: React.FC = () => {
-  const [showAddPlatformForm, setShowAddPlatformForm] = useState(false);
-  const handleAddPlatformClick = () => {
-    setShowAddPlatformForm(true);
-  };
-  interface platformData {
-    id: number;
-    name: string;
-    icon: ReactNode;
-  }
+async function ProfilePage () {
+  // const [showAddPlatformForm, setShowAddPlatformForm] = useState(false);
+  // const handleAddPlatformClick = () => {
+  //   setShowAddPlatformForm(true);
+  // };
 
-  interface progammingLanguageData {
-    id: number;
-    name: string;
-  }
-
-  interface jobdeskData {
-    id: number;
-    name: string;
-  }
-
-  const platforms: platformData[] = [
-    {
-      id: 1,
-      name: "Fattah Anggit Al Dzakwan",
-      icon: <FaLinkedin size={24} />,
-    },
-    {
-      id: 2,
-      name: "Fadza",
-      icon: <FaGithub size={24} />,
-    },
-    {
-      id: 3,
-      name: "Fattah Anggit",
-      icon: <FaDribbble size={24} />,
-    },
-  ];
-
-  const progammingLanguages: progammingLanguageData[] = [
-    {
-      id: 1,
-      name: "Flutter",
-    },
-    {
-      id: 2,
-      name: "JawaScript",
-    },
-    {
-      id: 3,
-      name: "Laravel",
-    },
-    {
-      id: 4,
-      name: "Javva",
-    },
-  ];
-  const jobdesks: jobdeskData[] = [
-    {
-      id: 1,
-      name: "UI/UX Design",
-    },
-    {
-      id: 2,
-      name: "Frontend",
-    },
-    {
-      id: 3,
-      name: "Backend",
-    },
-  ];
+  const dataUser = await getCurrentUser();
 
   const tabContents = [
     {
@@ -131,9 +68,9 @@ const ProfilePage: React.FC = () => {
   return (
     <div className="w-full relative">
       <div className=" absolute right-28 top-28">
-        <Image
+        <img
           className="rounded-full border-2 h-[280px] border-solid border-white shadow-xl"
-          src={"/assets/image/user-avatar.png"}
+          src={dataUser.profile_picture ?? "/assets/image/user-avatar.png"}
           alt="profile picture"
           width={280}
           height={280}
@@ -145,8 +82,8 @@ const ProfilePage: React.FC = () => {
       </div>
       <div className="w-full h-screen  flex flex-col pb-8">
         <div className="w-full h-[20%] bg-red-100">
-          <Image
-            src={"/assets/image/banner-profile.png"}
+          <img
+            src={dataUser.profile_background ?? "/assets/image/banner-profile.png"}
             alt="background profile"
             width={1000}
             height={1000}
@@ -162,17 +99,17 @@ const ProfilePage: React.FC = () => {
             <h2 className="text-2xl font-semibold text-black">
               Portflio Platform
             </h2>
-            {platforms.map((item: platformData, index: number) => (
+            {dataUser.portfolio_platform.map((item ,index) => (
               <div key={index} className="flex gap-2 mt-12">
-                {item.icon}
+                <FaGithub size={24} />
                 <h2 className="text-lg font-medium text-black">{item.name}</h2>
               </div>
             ))}
-            {showAddPlatformForm ? (
-              <form className="mt-8 " >
+            {/* {showAddPlatformForm ? (
+              <form className="mt-8 ">
                 <div className="flex flex-col gap-4">
                   <Input
-                  className="h-auto py-3"
+                    className="h-auto py-3"
                     placeholder={"Enter name platform link"}
                     title={"Name Platform"}
                     name={"name"}
@@ -192,8 +129,6 @@ const ProfilePage: React.FC = () => {
                       size="sm"
                       className="w-auto  h-auto py-3 px-4 cursor-pointer mt-8  rounded-xl"
                     >
-                
-
                       <h1 className="font-light text-normal ">Save</h1>
                     </Button>
                     <Button
@@ -219,38 +154,27 @@ const ProfilePage: React.FC = () => {
                   Add Portofolio Platform
                 </h1>
               </Button>
-            )}
-            {/* <Button
-              variant="default"
-              size="sm"
-              className="w-auto flex gap-2 h-auto py-3 px-4 cursor-pointer mt-8 rounded-xl"
-            >
-              <FiPlus size={20} />
-
-              <h1 className="font-light text-normal ">
-                Add Portfolio Platforms
-              </h1>
-            </Button> */}
+            )} */}
           </div>
 
           <div className="w-4/5 h-full  pt-12 pl-16">
             <div className="w-full flex flex-col items-start">
               <div className="flex gap-4 items-center mb-4">
                 <h2 className="text-4xl font-medium text-black">
-                  Fattah Anggit Al Dzakwan
+                  {dataUser.full_name}
                 </h2>
                 <MdEdit size={32} />
               </div>
             </div>
             <h4 className="text-gray-400 text-[24px] flex justify-start gap-3">
-              Mobile Developer{" "}
+              {dataUser.job}{" "}
               <span className="text-gray-400 text-[24px] font-normal">
-                (18)
+                ({dataUser.age})
               </span>
             </h4>
             <div className="flex flex-wrap gap-3">
-              {progammingLanguages.map(
-                (item: progammingLanguageData, index: number) => (
+              {dataUser.expertise.map(
+                (item, index) => (
                   <div
                     key={index}
                     className="mt-8 px-16 py-2 bg-blue-50 rounded-3xl"
