@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import ChipExpertise from "@/app/components/common-components/chip-expertise";
+import ChipExpertise from "@/app/components/common-components/chip-expertise-click";
 import {sendRequestProject} from "@/app/lib/services/api/project";
 
 
