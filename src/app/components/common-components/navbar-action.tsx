@@ -12,11 +12,11 @@ import Link from "next/link";
 import {redirect} from "next/navigation";
 import {deleteSession} from "@/app/lib/services/session/session";
 
-const NavbarAction:React.FC = () => {
+const   NavbarAction:React.FC = () => {
  return (
      <DropdownMenu>
          <DropdownMenuTrigger className={"cursor-pointer"} asChild>
-             <Image  src="/assets/image/user-avatar.png" alt="User Avatar" width={40} height={40} className="rounded-full" />
+             <img  src="https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="User Avatar"  className="rounded-full w-10 h-10" />
          </DropdownMenuTrigger>
          <DropdownMenuContent className="w-56">
              <DropdownMenuLabel>

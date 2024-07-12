@@ -6,7 +6,8 @@ import { FaPlus } from "react-icons/fa6";
 import { ComboboxCategoryProject } from "./components/combobox-category";
 import 'react-tagsinput/react-tagsinput.css';
 import TagsInput from 'react-tagsinput';
-import { log } from "console";
+import {useRouter} from "next/navigation";
+import Loading from "@/app/components/ui/loading";
 
 
 
@@ -21,6 +22,10 @@ export default function ProjectCollaboration() {
   const [category, setCategory] = useState("");
   const [isPaid, setIsPaid] = useState(0);
   const [tags, setTags] = useState<string[]>([]);
+
+  const {push} = useRouter()
+  const [loading ,setLoading] = useState(false);
+
 
   const postProject = async () => {
     const projectData: ProjectRequest = {
@@ -37,12 +42,16 @@ export default function ProjectCollaboration() {
     tags.map((tag) => {
       data.push({name: tag})
     })
-
+    setLoading(true)
     const response = await storeProject(projectData);
 
     data.map(async (skillData) => {
         await sendRequestProject(response.id, skillData.name);
     })
+    setLoading(false)
+    push("/")
+
+
 
     
   };
@@ -128,7 +137,9 @@ export default function ProjectCollaboration() {
         className="w-[45%] bg-primary rounded-2xl h-[60px]"
         onClick={postProject}
       >
-        <h3 className="font-medium text-white text-lg">Create Project</h3>
+        <h3 className="font-medium text-white text-lg">{
+          loading ?<Loading/>: "Create Project"
+        }</h3>
       </button>
     </div>
   );
