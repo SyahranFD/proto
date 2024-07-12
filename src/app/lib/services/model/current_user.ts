@@ -28,7 +28,7 @@ export interface CurrentUserResponse {
     data: UserData;
 }
 
-export interface ApiPostPortofolioResponse {
+export interface PortofolioResponse {
     name: string | null;
     url: string | null;
 }
