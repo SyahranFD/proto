@@ -206,7 +206,7 @@ const MessagingPage: React.FC = () => {
 
                                         <div key={message.id} className={' w-full flex justify-end'}>
 
-                                            <div className={'bg-[#282828] w-fit p-4 rounded  text-white'}>
+                                            <div className={'bg-[#282828] w-fit p-4 rounded rounded-tr-none text-white'}>
                                                 <p>
                                                     {message.text}
                                                 </p>
@@ -220,7 +220,7 @@ const MessagingPage: React.FC = () => {
 
                                         <div key={message.id} className={' w-full flex justify-start'}>
 
-                                            <div className={'bg-white w-fit p-4 rounded'}>
+                                            <div className={'bg-white w-fit p-4 rounded rounded-tl-none  '}>
                                                 <p>
                                                     {message.text}
                                                 </p>
