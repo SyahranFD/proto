@@ -7,6 +7,10 @@ interface ProjectRequest{
     is_paid: number;
 }
 
+interface ProjectSkillRequest{
+    name: string;
+}
+
 interface ProjectStoreResponse {
     data: ProjectStore
 }

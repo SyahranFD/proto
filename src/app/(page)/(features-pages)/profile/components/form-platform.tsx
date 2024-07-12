@@ -9,9 +9,8 @@ import { postPortofolioPlatform } from "@/app/lib/services/api/profile";
 import Loading from "@/app/components/ui/loading";
 
 const FormLayoutPortoPlatform: React.FC = () => {
+  
   const [showAddPlatformForm, setShowAddPlatformForm] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const handleAddPlatformClick = () => {
     setShowAddPlatformForm(true);
   };
@@ -21,13 +20,11 @@ const FormLayoutPortoPlatform: React.FC = () => {
   };
 
   const handleSavePlatformClick = async () => {
-    setIsSubmitting(true); 
     await mutate({
       name: formik.values.name,
       url: formik.values.url,
     });
     setShowAddPlatformForm(false);
-    setIsSubmitting(false); 
   };
 
 
@@ -38,15 +35,12 @@ const FormLayoutPortoPlatform: React.FC = () => {
     },
     onSubmit: async (values) => {
       try {
-        setIsSubmitting(true);
         console.log("Submitting values:", values);
         await mutate(values);
         setShowAddPlatformForm(false);
       } catch (error) {
         console.error("Error submitting form:", error);
-      } finally {
-        setIsSubmitting(false);
-      }
+      } 
     },
   });
 
@@ -54,7 +48,7 @@ const FormLayoutPortoPlatform: React.FC = () => {
     formik.setFieldValue(e.target.name, e.target.value);
   };
 
-  const { mutate } = postPortofolioPlatform();
+  const { mutate, isLoading } = postPortofolioPlatform();
 
   return (
     <div>
@@ -77,7 +71,7 @@ const FormLayoutPortoPlatform: React.FC = () => {
               onChange={handleForm}
             />
             <div className="flex gap-3 mt-4">
-              {isSubmitting ? (
+              {isLoading ? (
                 <Loading />
               ) : (
                 <>

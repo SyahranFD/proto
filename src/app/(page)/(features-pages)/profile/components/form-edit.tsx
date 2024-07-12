@@ -17,13 +17,17 @@ import {
 } from "@/app/components/ui/dialog";
 import { Label } from "@/app/components/ui/label";
 import { Input } from "@/app/components/ui/input";
+import { useFetch } from "@/app/lib/services/api/actions";
+import { CurrentUserResponse } from "@/app/lib/services/model/current_user";
 
 const FormLayoutEdit: React.FC = () => {
+  const { data: dataUser, } = useFetch<CurrentUserResponse>({
+    endpoint: "/users/show",
+  });
   const [showAddPlatformForm, setShowAddPlatformForm] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSavePlatformClick = async () => {
-    setIsSubmitting(true);
+    
     await mutate({
       full_name: formik.values.full_name,
       age: formik.values.age,
@@ -32,7 +36,7 @@ const FormLayoutEdit: React.FC = () => {
       profile_background: formik.values.profile_background,
     });
     setShowAddPlatformForm(false);
-    setIsSubmitting(false);
+    
   };
 
   const formik = useFormik({
@@ -45,15 +49,12 @@ const FormLayoutEdit: React.FC = () => {
     },
     onSubmit: async (values) => {
       try {
-        setIsSubmitting(true);
         console.log("Submitting values:", values);
         await mutate(values);
         setShowAddPlatformForm(false);
       } catch (error) {
         console.error("Error submitting form:", error);
-      } finally {
-        setIsSubmitting(false);
-      }
+      } 
     },
   });
 
@@ -61,7 +62,7 @@ const FormLayoutEdit: React.FC = () => {
     formik.setFieldValue(e.target.name, e.target.value);
   };
 
-  const { mutate } = putEditUser();
+  const { mutate, isLoading } = putEditUser();
 
   return (
     <div>
@@ -86,8 +87,9 @@ const FormLayoutEdit: React.FC = () => {
                 defaultValue="Pedro Duarte"
                 className="col-span-3"
                 name={"full_name"}
-                value={formik.values.full_name}
+                value={formik.values.full_name ?? dataUser?.data.full_name}
                 onChange={handleForm}
+                placeholder={dataUser?.data.full_name}
               />
             </div>
             <div className="items-center gap-4">
@@ -99,8 +101,9 @@ const FormLayoutEdit: React.FC = () => {
                 defaultValue="@peduarte"
                 className="col-span-3"
                 name={"age"}
-                value={formik.values.age}
+                value={formik.values.age ?? dataUser?.data.age}
                 onChange={handleForm}
+                placeholder={dataUser?.data.age?.toString()}
               />
             </div>
             <div className=" items-center gap-4">
@@ -112,8 +115,9 @@ const FormLayoutEdit: React.FC = () => {
                 defaultValue="@peduarte"
                 className="col-span-3"
                 name={"job"}
-                value={formik.values.job}
+                value={formik.values.job ?? dataUser?.data.job}
                 onChange={handleForm}
+                placeholder={dataUser?.data.job!}
               />
             </div>
             <div className=" items-center gap-4">
@@ -125,8 +129,9 @@ const FormLayoutEdit: React.FC = () => {
                 defaultValue="@peduarte"
                 className="col-span-3"
                 name={"profile_picture"}
-                value={formik.values.profile_picture}
+                value={formik.values.profile_picture ?? dataUser?.data.profile_picture}
                 onChange={handleForm}
+                placeholder={dataUser?.data.profile_picture}
               />
             </div>
             <div className=" items-center gap-4">
@@ -138,12 +143,13 @@ const FormLayoutEdit: React.FC = () => {
                 defaultValue="@peduarte"
                 className="col-span-3"
                 name={"profile_background"}
-                value={formik.values.profile_background}
+                value={formik.values.profile_background ?? dataUser?.data.profile_background}
                 onChange={handleForm}
+                placeholder={dataUser?.data.profile_background!}
               />
             </div>
           </div>
-          {isSubmitting ? (
+          {isLoading ? (
             <Loading />
           ) : (
             <DialogFooter>
