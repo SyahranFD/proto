@@ -10,7 +10,7 @@ export interface Project {
     id:              string;
     room_id:         string;
     owner:           string;
-    expertise:       string;
+    owner_job:       string;
     owner_profile_picture: string;
     title:           string;
     description:     string;
