@@ -17,6 +17,43 @@ async function getAllProject() : Promise<Project[]> {
     }
 }
 
+async function getFilterSearch(query: string) : Promise<Project[]> {
+    try {
+        const res = await instance.get<ProjectResponse>(
+            `/project/index`,
+            {
+                params: {
+                    search: query,
+                    is_finish: 0
+                }
+            }
+
+        );
+        return res.data.data;
+    }catch (err) {
+        throw err;
+    }
+}
+
+async function getFilterSearch(query: string) : Promise<Project[]> {
+    try {
+        const {token} = await verifySession()
+        const res = await instance.get<ProjectResponse>(
+            `/project/index`,
+            {
+                params: {
+                    search: query,
+                    is_finish: 0
+                }
+            }
+
+        );
+        return res.data.data;
+    }catch (err) {
+        throw err;
+    }
+}
+
 async function getFeedProject() : Promise<Project[]> {
     try {
         const {token} = await verifySession()
@@ -31,6 +68,78 @@ async function getFeedProject() : Promise<Project[]> {
                 },
                 params: {
                     is_finish: 1
+                }
+            }
+
+        );
+        return res.data.data;
+    }catch (err) {
+        throw err;
+    }
+}
+
+async function getSoftwareDevelopmentProject() : Promise<Project[]> {
+    try {
+        const res = await instance.get<ProjectResponse>(
+            `/project/index`,
+            {
+                params: {
+                    category: "software development",
+                    is_finish: 0
+                }
+            }
+
+        );
+        return res.data.data;
+    }catch (err) {
+        throw err;
+    }
+}
+
+async function getProjectDesign() : Promise<Project[]> {
+    try {
+        const res = await instance.get<ProjectResponse>(
+            `/project/index`,
+            {
+                params: {
+                    category: "design",
+                    is_finish: 0
+                }
+            }
+
+        );
+        return res.data.data;
+    }catch (err) {
+        throw err;
+    }
+}
+
+async function getProject2DAnimation() : Promise<Project[]> {
+    try {
+        const res = await instance.get<ProjectResponse>(
+            `/project/index`,
+            {
+                params: {
+                    category: "2d animation",
+                    is_finish: 0
+                }
+            }
+
+        );
+        return res.data.data;
+    }catch (err) {
+        throw err;
+    }
+}
+
+async function getProject3DAnimation() : Promise<Project[]> {
+    try {
+        const res = await instance.get<ProjectResponse>(
+            `/project/index`,
+            {
+                params: {
+                    category: "3d animation",
+                    is_finish: 0
                 }
             }
 
@@ -147,5 +256,10 @@ export {
     getProjectById,
     getRecommendationProject,
     sendRequestProject,
+    getSoftwareDevelopmentProject,
+    getProjectDesign,
+    getProject2DAnimation,
+    getProject3DAnimation,
+    getFilterSearch,
     storeProject
 }

@@ -14,20 +14,8 @@ import {
 import { ComboboxDemo } from "@/app/components/ui/combobox";
 import {
   getCurrentUser,
-  postPortofolioPlatform,
 } from "@/app/lib/services/api/profile";
 import FormLayoutPortoPlatform from "./components/form-platform";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/app/components/ui/dialog";
-import { Label } from "@/app/components/ui/label";
-import { Input } from "@/app/components/ui/input";
 import FormLayoutEdit from "./components/form-edit";
 import {useFetch} from "@/app/lib/services/api/actions";
 import {CurrentUserResponse} from "@/app/lib/services/model/current_user";
@@ -249,18 +237,6 @@ function ProfilePage() {
             </div>
             <div className="w-full justify-end inline-flex pr-24 pt-4 ">
               <FormLayoutEdit/>
-
-              {/* <Button
-
-                variant="default"
-                size="sm"
-                className="w-auto flex gap-2 h-auto py-3 px-4 cursor-pointer mt-8 rounded-xl"
-              >
-                <FiPlus size={20} />
-
-                <h1 className="font-light text-normal ">Add Project</h1>
-                <Dialog/>
-              </Button> */}
             </div>
           </div>
         </div>
