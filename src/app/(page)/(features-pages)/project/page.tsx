@@ -1,9 +1,7 @@
-
-
 import {
   getAllProject,
   getSoftwareDevelopmentProject,
-  getRecommendationProject,
+
   getProjectDesign,
   getProject2DAnimation,
   getProject3DAnimation,
@@ -15,7 +13,6 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/app/components/ui/tabs";
-import { Input } from "@/app/components/ui/input";
 import ProjectList from "./components/project-list";
 import InputSearch from "./components/input-search";
 
@@ -42,11 +39,9 @@ async function ProjectPage({
   return (
     <div className="w-full h-screen">
       <div className="w-full h-full flex flex-col justify-start items-center pt-16">
-        <h1 className="text-4xl font-semibold "> Project Explore</h1>
-        <p className="w-[30%] text-lg font-light text-center text-gray-200 mt-6">
-          Jorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu
-          turpis molestie, dictum est a, mattis tellusmattis tellusmattis
-          tellus. Sed dignissim, metus nec
+        <h1 className="text-2xl font-semibold "> Project Explore</h1>
+        <p className="w-[30%] text-lg font-light text-center text-[#B6B6B6] mt-6">
+          Discover thousand of project you want to join.Unleash your creativity and curiosity
         </p>
 
         <div className="w-[30%] mt-8">

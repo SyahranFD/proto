@@ -119,7 +119,7 @@ const MessagingPage: React.FC = () => {
         <main className={'flex h-screen'}>
 
 
-            <aside className={'w-[21%] p-7 flex-col flex gap-10'}>
+            <aside className={'border-r-2 w-[22%] p-7 flex-col flex gap-10'}>
 
 
                 <section className={'flex flex-col gap-3'}>
@@ -140,11 +140,18 @@ const MessagingPage: React.FC = () => {
 
                     </div>
 
+                    <div className={'flex flex-row mt-4 font-bold gap-3'}>
+                        <div>
+                            <p className={'ml-2'}>All Chat</p>
+                            <hr className={'w-20 mt-2 font-bold bg-primary text-primary h-1.5 rounded-lg'} />
+                        </div>
+                        <p>Group Chat</p>
 
+                    </div>
                 </section>
 
 
-                <section className={'flex flex-col gap-3'}>
+                <section className={'flex flex-col gap-7'}>
 
                     {
                         ChatList.map((chat: responseChat) => (
@@ -158,21 +165,21 @@ const MessagingPage: React.FC = () => {
                                 </Avatar>
 
                                 <div className={'flex-1 space-y-2'}>
-                                    <p className={'font-bold'}>{chat.name}</p>
-                                    {/*<p className={'line-clamp-1 text-sm'}>Hello there nice to meet you. Can i*/}
-                                    {/*    join...</p>*/}
+                                    <p className={'font-bold line-clamp-1'}>{chat.name}</p>
+                                    <p className={'line-clamp-1 text-sm'}>Hello there nice to meet you. Can i
+                                        join...</p>
 
                                 </div>
 
-                                {/*<div className={'flex  space-y-2 flex-col justify-end items-end'}>*/}
-                                {/*    <p className={'font-bold'}>15:00</p>*/}
+                                <div className={'flex  space-y-2 flex-col justify-end items-end'}>
+                                    <p className={'font-bold'}>15:00</p>
 
-                                {/*    <div*/}
-                                {/*        className={' h-7 rounded-full w-7 text-white text-center bg-[#282828] flex items-center justify-center'}>*/}
-                                {/*        <p className="text-xs m-0">12</p>*/}
-                                {/*    </div>*/}
+                                    <div
+                                        className={' h-7 rounded-full w-7 text-white text-center bg-[#282828] flex items-center justify-center'}>
+                                        <p className="text-xs m-0">12</p>
+                                    </div>
 
-                                {/*</div>*/}
+                                </div>
 
 
                             </div>
