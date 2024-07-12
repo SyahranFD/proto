@@ -26,16 +26,16 @@ export default async function DetailProject(
         <div className="flex flex-col h-[90vh] justify-between px-[130px] py-[65px]">
             <div className="flex justify-between">
                 <div className="flex flex-col gap-[25px] w-[50%]">
-                    <div>
+                    <div className={'flex gap-5 flex-col'}>
                         <h2 className="font-semibold text-[#7D7D7D] text-xl">{dataProject.category.toUpperCase()}</h2>
                         <h1 className="font-semibold text-2xl text-primary">{dataProject.title}</h1>
                         <p className="font-light text-[#7A7A7A]">{dataProject.description}</p>
                     </div>
                     <div>
                         <h2 className="font-semibold text-xl text-primary">Tools Used</h2>
-                        <ul className="list-disc pl-5">
+                        <ul className="list-disc  pl-5">
                             {dataProject.tool.map((tool, index) => (
-                                <li key={index}>{tool.name}</li>
+                                <li key={index} className={'cursor-pointer'}>{tool.name}</li>
                                 )
                             )
                             }

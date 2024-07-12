@@ -18,11 +18,15 @@ const ProjectCard = ({ project }: { project: Project }) => (
       </div>
 
       <div className="flex gap-5">
-        {project.skill.map((skill, index) => (
-          <div key={index}>
-            <ChipExpertise expertise={skill.name} />
-          </div>
-        ))}
+        {project.skill.map((skill, index) => {
+          if(index < 3){
+            return (
+                <div key={index}>
+                  <ChipExpertise expertise={skill.name} />
+                </div>
+            )
+          }
+        })}
       </div>
     </div>
 
@@ -32,9 +36,8 @@ const ProjectCard = ({ project }: { project: Project }) => (
       <img
         src={project.owner_profile_picture}
         alt="User Avatar"
-        width={40}
-        height={40}
-        className="rounded-full -ms-3"
+
+        className="rounded-full -ms-3 w-10 h-10"
       />
 
       <button className="bg-primary px-[18px] py-[5px] rounded-[16px]">

@@ -9,16 +9,21 @@ export default async function Home() {
   return (
       <div className="w-screen h-screen">
         <Navbar/>
-          <div className="bg-[#F9F9F9] px-[145px] pt-[50px] flex gap-[50px]">
-              <div className="flex flex-col gap-[25px] w-full">
-                  <YourProjectComponent/>
-                  <RecommendForYou/>
-                  <FeedComponent/>
+          <div className="bg-[#F9F9F9] px-[145px] flex flex-col ">
+              <div className={'flex pt-[50px] gap-[50px]'}>
+                  <div className="flex flex-col gap-[25px] w-full">
+                      <YourProjectComponent/>
+                      <RecommendForYou/>
+
+                  </div>
+
+                  <div className="w-1/5">
+                      <SuggestedForComponent/>
+                  </div>
               </div>
 
-              <div className="w-1/5">
-                  <SuggestedForComponent/>
-              </div>
+
+              <FeedComponent/>
           </div>
       </div>
   );
