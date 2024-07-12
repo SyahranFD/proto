@@ -1,4 +1,3 @@
-
 "use server"
 
 import instance from "@/app/lib/services/instance/instance";
@@ -7,13 +6,13 @@ import {getItem} from "@/app/lib/services/session/local-storage";
 import {verifySession} from "@/app/lib/services/session/session";
 
 
-async function getAllProject() : Promise<Project[]> {
+async function getAllProject(): Promise<Project[]> {
     try {
         const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -21,18 +20,18 @@ async function getAllProject() : Promise<Project[]> {
             }
         );
         return res.data.data;
-    }catch (err) {
+    } catch (err) {
         throw err;
     }
 }
 
-async function getFilterSearch(query: string) : Promise<Project[]> {
+async function getFilterSearch(query: string): Promise<Project[]> {
     try {
         const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -42,22 +41,21 @@ async function getFilterSearch(query: string) : Promise<Project[]> {
                     is_finish: 0
                 }
             }
-
         );
         return res.data.data;
-    }catch (err) {
+    } catch (err) {
         throw err;
     }
 }
 
-async function getFeedProject() : Promise<Project[]> {
+async function getFeedProject(): Promise<Project[]> {
     try {
         const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
 
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -66,22 +64,21 @@ async function getFeedProject() : Promise<Project[]> {
                     is_finish: 1
                 }
             }
-
         );
         return res.data.data;
-    }catch (err) {
+    } catch (err) {
         throw err;
     }
 }
 
-async function getSoftwareDevelopmentProject() : Promise<Project[]> {
+async function getSoftwareDevelopmentProject(): Promise<Project[]> {
     try {
         const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
 
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -92,21 +89,20 @@ async function getSoftwareDevelopmentProject() : Promise<Project[]> {
                     is_finish: 0
                 }
             }
-
         );
         return res.data.data;
-    }catch (err) {
+    } catch (err) {
         throw err;
     }
 }
 
-async function getProjectDesign() : Promise<Project[]> {
+async function getProjectDesign(): Promise<Project[]> {
     try {
         const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -116,21 +112,20 @@ async function getProjectDesign() : Promise<Project[]> {
                     is_finish: 0
                 }
             }
-
         );
         return res.data.data;
-    }catch (err) {
+    } catch (err) {
         throw err;
     }
 }
 
-async function getProject2DAnimation() : Promise<Project[]> {
+async function getProject2DAnimation(): Promise<Project[]> {
     try {
         const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -140,21 +135,20 @@ async function getProject2DAnimation() : Promise<Project[]> {
                     is_finish: 0
                 }
             }
-
         );
         return res.data.data;
-    }catch (err) {
+    } catch (err) {
         throw err;
     }
 }
 
-async function getProject3DAnimation() : Promise<Project[]> {
+async function getProject3DAnimation(): Promise<Project[]> {
     try {
         const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -164,21 +158,20 @@ async function getProject3DAnimation() : Promise<Project[]> {
                     is_finish: 0
                 }
             }
-
         );
         return res.data.data;
-    }catch (err) {
+    } catch (err) {
         throw err;
     }
 }
 
-async function getCurrentProject() : Promise<Project[]> {
+async function getCurrentProject(): Promise<Project[]> {
     try {
         const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/show`,
             {
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -186,18 +179,18 @@ async function getCurrentProject() : Promise<Project[]> {
             }
         );
         return res.data.data;
-    }catch (err) {
+    } catch (err) {
         throw err;
     }
 }
 
-async function getRecommendationProject(category: string) : Promise<Project[]> {
+async function getRecommendationProject(category: string): Promise<Project[]> {
     try {
         const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -210,19 +203,19 @@ async function getRecommendationProject(category: string) : Promise<Project[]> {
             }
         );
         return res.data.data;
-    }catch (err) {
+    } catch (err) {
         throw err;
     }
 }
 
-async function getProjectById(id: string) : Promise<Project> {
+async function getProjectById(id: string): Promise<Project> {
     try {
 
         const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/show/${id}`,
             {
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -230,12 +223,12 @@ async function getProjectById(id: string) : Promise<Project> {
             }
         );
         return res.data.data;
-    }catch (err) {
+    } catch (err) {
         throw err;
     }
 }
 
-async function storeProject(request: ProjectRequest ) : Promise<ProjectStore> {
+async function storeProject(request: ProjectRequest): Promise<ProjectStore> {
     try {
         const res = await instance.post<ProjectStoreResponse>(
             `/project/store`,
@@ -248,12 +241,12 @@ async function storeProject(request: ProjectRequest ) : Promise<ProjectStore> {
             }
         );
         return res.data.data;
-    }catch (err) {
+    } catch (err) {
         throw err;
     }
 }
 
-async function sendRequestProject(projectId: string, expertise: string) : Promise<ProjectStore> {
+async function sendRequestProject(projectId: string, expertise: string): Promise<ProjectStore> {
     try {
         const {token} = await verifySession()
         const res = await instance.post<ProjectStoreResponse>(
@@ -263,7 +256,7 @@ async function sendRequestProject(projectId: string, expertise: string) : Promis
                 expertise: expertise
             },
             {
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -271,22 +264,22 @@ async function sendRequestProject(projectId: string, expertise: string) : Promis
             }
         );
         return res.data.data;
-    }catch (err) {
+    } catch (err) {
         throw err;
     }
 }
 
-async function uploadImageProject(projectId: string, expertise: string) : Promise<ProjectStore> {
+async function uploadImageProject(projectId: string, value): Promise<ProjectStore> {
     try {
         const {token} = await verifySession()
         const res = await instance.put<ProjectStoreResponse>(
-            `/project/${projectId}/send-request`,
+            `/project/finish/${projectId}`,
 
             {
-                expertise: expertise
+                image: value
             },
             {
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -294,7 +287,7 @@ async function uploadImageProject(projectId: string, expertise: string) : Promis
             }
         );
         return res.data.data;
-    }catch (err) {
+    } catch (err) {
         throw err;
     }
 }
@@ -311,6 +304,7 @@ export {
     getProjectDesign,
     getProject2DAnimation,
     getProject3DAnimation,
+    uploadImageProject,
     getFilterSearch,
     storeProject
 }

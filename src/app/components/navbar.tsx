@@ -38,7 +38,7 @@ export default function Navbar() {
             <ul className="flex gap-[80px]">
                 {dataNavbar.map((item, index) => (
                     <Link href={item.href} key={index}>
-                        <li className="font-medium text-lg text-primary">
+                        <li className=" font-medium text-lg text-primary">
                             {item.title}
                         </li>
                     </Link>

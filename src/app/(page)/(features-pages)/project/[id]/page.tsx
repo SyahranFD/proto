@@ -42,7 +42,7 @@ export default async function DetailProject(
                         </ul>
                     </div>
 
-                    <ClientAction skills={dataProject.skill} projectId={dataProject.id} query={query} isJoined={dataProject.is_joined} isOwner={dataProject.is_owner} />
+                    <ClientAction title={dataProject.title} room={dataProject.room_id} skills={dataProject.skill} projectId={dataProject.id} query={query} isJoined={dataProject.is_joined} isOwner={dataProject.is_owner} />
 
 
                 </div>
