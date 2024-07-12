@@ -12,21 +12,16 @@ import {
   TabsTrigger,
 } from "@/app/components/ui/tabs";
 import { ComboboxDemo } from "@/app/components/ui/combobox";
-import {
-  getCurrentUser,
-} from "@/app/lib/services/api/profile";
+import { getCurrentUser } from "@/app/lib/services/api/profile";
 import FormLayoutPortoPlatform from "./components/form-platform";
 import FormLayoutEdit from "./components/form-edit";
-import {useFetch} from "@/app/lib/services/api/actions";
-import {CurrentUserResponse} from "@/app/lib/services/model/current_user";
+import { useFetch } from "@/app/lib/services/api/actions";
+import { CurrentUserResponse } from "@/app/lib/services/model/current_user";
 
 function ProfilePage() {
-
-
-  const {data:dataUser,isLoading} = useFetch<CurrentUserResponse>({
-    endpoint:     "/users/show",
-  })
-
+  const { data: dataUser, isLoading } = useFetch<CurrentUserResponse>({
+    endpoint: "/users/show",
+  });
 
   const tabContents = [
     {
@@ -74,7 +69,9 @@ function ProfilePage() {
       <div className=" absolute right-28 top-28">
         <img
           className="rounded-full border-2 h-[280px] border-solid border-white shadow-xl"
-          src={dataUser?.data.profile_picture ?? "/assets/image/user-avatar.png"}
+          src={
+            dataUser?.data.profile_picture ?? "/assets/image/user-avatar.png"
+          }
           alt="profile picture"
           width={280}
           height={280}
@@ -88,7 +85,8 @@ function ProfilePage() {
         <div className="w-full h-[20%] bg-red-100">
           <img
             src={
-              dataUser?.data.profile_background ?? "/assets/image/banner-profile.png"
+              dataUser?.data.profile_background ??
+              "/assets/image/banner-profile.png"
             }
             alt="background profile"
             width={1000}
@@ -236,7 +234,7 @@ function ProfilePage() {
               </div>
             </div>
             <div className="w-full justify-end inline-flex pr-24 pt-4 ">
-              <FormLayoutEdit/>
+              <FormLayoutEdit />
             </div>
           </div>
         </div>
