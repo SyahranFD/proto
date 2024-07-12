@@ -4,7 +4,7 @@ import React, {ChangeEvent, useState} from 'react';
 import {Input} from "@/app/components/ui/input";
 import {Button} from "@/app/components/ui/button";
 import {useFormik} from "formik";
-import {usePost} from "@/app/lib/services/api/actions";
+import {usePost, usePostAuth} from "@/app/lib/services/api/actions";
 import {useRouter} from "next/navigation";
 import {useToast} from "@/app/components/ui/use-toast";
 import {IoEye, IoEyeOff} from "react-icons/io5";
@@ -37,7 +37,7 @@ const FormLayoutRegister: React.FC = () => {
 
 
 
-    const {mutate, isLoading, error} = usePost({
+    const {mutate, isLoading, error} = usePostAuth({
         endpoint: "users/register",
         onError: () => {
             toast({
