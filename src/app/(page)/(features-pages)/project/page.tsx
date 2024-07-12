@@ -17,6 +17,7 @@ import {
 } from "@/app/components/ui/tabs";
 import { Input } from "@/app/components/ui/input";
 import ProjectList from "./components/project-list";
+import InputSearch from "./components/input-search";
 
 
 async function ProjectPage({
@@ -49,10 +50,7 @@ async function ProjectPage({
         </p>
 
         <div className="w-[30%] mt-8">
-          <Input
-            placeholder={"Search Project"}
-            className={"h-14 rounded-lg "}
-          />
+          <InputSearch />
         </div>
 
         <div className="w-full flex justify-center mt-8">
