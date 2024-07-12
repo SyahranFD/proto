@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 
+
 export async function createSession(userToken: string,userID: string) {
 
     cookies().set('user-token',userToken , {
@@ -25,8 +26,8 @@ export async function createSession(userToken: string,userID: string) {
     redirect('/');
 }
 
-export async function verifySession(key?:string) {
-    const cookie = cookies().get(key ?? 'user-token')?.value;
+export async function verifySession() {
+    const cookie = cookies().get('user-token')?.value;
 
 
     if (!cookie) {

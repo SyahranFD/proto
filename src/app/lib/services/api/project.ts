@@ -62,7 +62,6 @@ async function getCurrentProject() : Promise<Project[]> {
 
 async function getRecommendationProject(category: string) : Promise<Project[]> {
     try {
-
         const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
