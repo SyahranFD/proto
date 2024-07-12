@@ -1,4 +1,3 @@
-import Image from "next/image";
 import ChipExpertise from "@/app/components/common-components/chip-expertise";
 import {getRecommendationProject} from "@/app/lib/services/api/project";
 import Link from "next/link";
