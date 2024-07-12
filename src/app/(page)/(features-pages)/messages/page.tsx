@@ -11,7 +11,6 @@ import {auth, firestore} from "../../../../../firebase";
 import {verifySessionName, verifySessionUserID} from "@/app/lib/services/session/session";
 
 
-
 interface responseMessage {
     createdAt?: {
         nanoseconds: number,
@@ -23,26 +22,25 @@ interface responseMessage {
     text?: string
     user?: string
 }
+
 interface responseChat {
-    avatarUrl?:string;
-    name?:string;
-    user_session_id?:string;
-    room_id?:string;
-    id?:string;
+    avatarUrl?: string;
+    name?: string;
+    user_session_id?: string;
+    room_id?: string;
+    id?: string;
 }
 
 const MessagingPage: React.FC = () => {
 
 
+    const [name, setName] = useState("");
+    const [room, setRoom] = useState<string | undefined>("");
+    const [id, setid] = useState("");
 
-
-    const [name,setName] = useState("");
-    const [room,setRoom] = useState<string | undefined>("");
-    const [id,setid] = useState("");
-
-    const fetchMessage = async () =>{
+    const fetchMessage = async () => {
         const {token} = await verifySessionName()
-        const {token:user_id} = await verifySessionUserID()
+        const {token: user_id} = await verifySessionUserID()
 
         setName(token)
         setid(user_id)
@@ -63,8 +61,6 @@ const MessagingPage: React.FC = () => {
         e.preventDefault();
 
 
-
-
         if (messages == "") return;
 
         await addDoc(mesageRef, {
@@ -79,14 +75,14 @@ const MessagingPage: React.FC = () => {
 
     useEffect(() => {
         const mesageRef = collection(firestore, "chats");
-        const queryMessagesOrdera = query(mesageRef,where("user_session_id","==",id));
+        const queryMessagesOrdera = query(mesageRef, where("user_session_id", "==", id));
 
         const unsubscribe = onSnapshot(queryMessagesOrdera, (snapshot) => {
 
             const data: responseChat[] = []
             snapshot.forEach((doc) => {
 
-                data.push({...doc.data(),id:doc.id})
+                data.push({...doc.data(), id: doc.id})
             })
 
             setChatList(data)
@@ -97,11 +93,10 @@ const MessagingPage: React.FC = () => {
 
 
     useEffect(() => {
-        if(room != "" && room != undefined){
+        if (room != "" && room != undefined) {
             const queryMessagesOrder = query(
                 mesageRef,
                 where("room", "==", room),
-
             );
 
             const unsubscribe = onSnapshot(queryMessagesOrder, (snapshot) => {
@@ -153,10 +148,11 @@ const MessagingPage: React.FC = () => {
 
                     {
                         ChatList.map((chat: responseChat) => (
-                            <div onClick={()=>{
+                            <div onClick={() => {
 
                                 setRoom(chat.room_id)
-                            }} key={chat.room_id} className={'cursor-pointer h-fit w-full flex items-center space-x-5  justify-between flex-row'}>
+                            }} key={chat.room_id}
+                                 className={'cursor-pointer h-fit w-full flex items-center space-x-5  justify-between flex-row'}>
                                 <Avatar className={'h-16 w-16   '}>
                                     <AvatarImage src={chat.avatarUrl}/>
                                 </Avatar>
@@ -189,7 +185,6 @@ const MessagingPage: React.FC = () => {
             </aside>
 
 
-
             {
                 room == "" || room == undefined ? <div></div> :
                     <div className={'bg-[#F8F8F8] flex-1 flex-col h-screen flex justify-between'}>
@@ -206,7 +201,7 @@ const MessagingPage: React.FC = () => {
                         <div className={'w-full h-full overflow-y-scroll flex-col flex gap-5 p-5'}>
                             {messagesList && messagesList.map((message) => {
 
-                                if ("daffa" === message.user) {
+                                if (name === message.user) {
                                     return (
 
                                         <div key={message.id} className={' w-full flex justify-end'}>
@@ -240,7 +235,7 @@ const MessagingPage: React.FC = () => {
                             })}
                         </div>
                         <form onSubmit={handleSubmit}
-                            className={'w-full h-20 flex items-center justify-between gap-4 p-5 flex-row border-x border-t bg-white'}>
+                              className={'w-full h-20 flex items-center justify-between gap-4 p-5 flex-row border-x border-t bg-white'}>
 
                             <FiPaperclip size={"22"}/>
 
