@@ -2,7 +2,7 @@
 
 import {useSearchParams, usePathname, useRouter} from 'next/navigation';
 import ChipExpertiseClick from "@/app/components/common-components/chip-expertise-click";
-import {sendRequestProject, uploadImageProject} from "@/app/lib/services/api/project";
+import {sendRequestProject, sendRequestProjecta, uploadImageProject} from "@/app/lib/services/api/project";
 import ChipExpertise from "@/app/components/common-components/chip-expertise";
 import {FaUserGroup} from "react-icons/fa6";
 import {AiOutlinePicture} from "react-icons/ai";
@@ -48,7 +48,7 @@ function ClientAction({skills, projectId, query, isJoined, isOwner, room, title}
         if (query) {
 
             setLoadinga(true)
-            await sendRequestProject(projectId, query)
+            await sendRequestProjecta(projectId, query)
             setLoadinga(false)
 
 

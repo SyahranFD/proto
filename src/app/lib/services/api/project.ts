@@ -257,6 +257,29 @@ async function storeProject(request: ProjectRequest): Promise<ProjectStore> {
     }
 }
 
+async function sendRequestProjecta(projectId: string, expertise: string) : Promise<ProjectStore> {
+    try {
+        const {token} = await verifySession()
+        const res = await instance.post<ProjectStoreResponse>(
+            `/project/${projectId}/send-request`,
+
+        {
+            expertise: expertise
+        },
+        {
+            headers:{
+                "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+            },
+        }
+    );
+        return res.data.data;
+    }catch (err) {
+        throw err;
+    }
+}
+
 async function sendRequestProject(projectId: string, expertise: string): Promise<ProjectStore> {
     try {
         const {token} = await verifySession()
@@ -316,6 +339,7 @@ export {
     getProject2DAnimation,
     getProject3DAnimation,
     uploadImageProject,
+    sendRequestProjecta,
     getFilterSearch,
     storeProject
 }

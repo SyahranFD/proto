@@ -171,7 +171,7 @@ const MessagingPage: React.FC = () => {
                                 </div>
 
                                 <div className={'flex  space-y-2 flex-col justify-end items-end'}>
-                                    <p className={'font-bold'}>06:10</p>
+                                    <p className={'font-bold'}>05:40</p>
 
                                     <div
                                         className={' h-7 rounded-full w-7 text-white text-center bg-[#282828] flex items-center justify-center'}>
