@@ -4,8 +4,9 @@
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { Input } from "@/app/components/ui/input";
 import { useDebouncedCallback } from 'use-debounce';
+import { IoSearch } from "react-icons/io5";
 
-function InputSearch ({ placeholder }: { placeholder: string })  {
+function InputSearch ()  {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
@@ -24,9 +25,10 @@ function InputSearch ({ placeholder }: { placeholder: string })  {
 
 
    return(
-    <div className="w-[30%] mt-8">
+    <div className="w-full mt-8">
     <Input
-      value={placeholder}
+    leftIcon={<IoSearch size={24}  className="mr-3"/>}
+      placeholder="Search Project"
       className={"h-14 rounded-lg "}
       onChange={(e) => {
         handleSearch(e.target.value);
