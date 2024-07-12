@@ -24,7 +24,7 @@ export default async function RecommendForYou() {
                             <div className="flex gap-5">
                                 {project.skill.map((skill, index) => (
                                     <div key={index}>
-                                        <ChipExpertise expertise={skill.name}/>
+                                        {/* <ChipExpertise expertise={skill.name}/> */}
                                     </div>
                                 ))}
                             </div>

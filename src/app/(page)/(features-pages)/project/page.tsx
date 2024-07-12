@@ -1,10 +1,5 @@
-"use client";
-
 import { Button } from "@/app/components/ui/button";
 import Image from "next/image";
-import { FaDribbble, FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
-import { FiPlus } from "react-icons/fi";
-import { MdEdit } from "react-icons/md";
 import {
   Tabs,
   TabsContent,
@@ -12,14 +7,27 @@ import {
   TabsTrigger,
 } from "@/app/components/ui/tabs";
 import { ComboboxDemo } from "@/app/components/ui/combobox";
-import {
-  getCurrentUser,
-} from "@/app/lib/services/api/profile";
-import FormLayoutPortoPlatform from "./components/form-platform";
-import FormLayoutEdit from "./components/form-edit";
 
-async function ProfilePage() {
-  const dataUser = await getCurrentUser();
+async function ProjectPage() {
+  interface progammingLanguageData {
+    id: number;
+    name: string;
+  }
+
+  const progammingLanguages: progammingLanguageData[] = [
+    {
+      id: 1,
+      name: "Flutter",
+    },
+    {
+      id: 2,
+      name: "JawaScript",
+    },
+    {
+      id: 3,
+      name: "Laravel",
+    },
+  ];
 
   const tabContents = [
     {
@@ -63,88 +71,19 @@ async function ProfilePage() {
   ];
 
   return (
-    <div className="w-full relative">
-      <div className=" absolute right-28 top-28">
-        <img
-          className="rounded-full border-2 h-[280px] border-solid border-white shadow-xl"
-          src={dataUser.profile_picture ?? "/assets/image/user-avatar.png"}
-          alt="profile picture"
-          width={280}
-          height={280}
-          style={{
-            objectFit: "cover",
-            color: "white",
-          }}
-        />
-      </div>
-      <div className="w-full h-screen  flex flex-col pb-8">
-        <div className="w-full h-[20%] bg-red-100">
-          <img
-            src={
-              dataUser.profile_background ?? "/assets/image/banner-profile.png"
-            }
-            alt="background profile"
-            width={1000}
-            height={1000}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
-          />
-        </div>
-        <div className="w-full h-[80%] flex">
-          <div className="w-1/5 h-full  pt-12 pl-16">
-            <h2 className="text-2xl font-semibold text-black">
-              Portflio Platform
-            </h2>
-            {dataUser.portfolio_platform.map((item, index) => (
-              <div key={index} className="flex gap-2 mt-12">
-                {item.name.toLowerCase().includes("github") ? (
-                  <FaGithub size={20} />
-                ) : item.name.toLowerCase().includes("linkedin") ? (
-                  <FaLinkedin size={20} />
-                ) : item.name.toLowerCase().includes("instagram") ? (
-                  <FaInstagram size={20} />
-                ) : (
-                  <FaDribbble size={20} />
-                )}
-                <h2 className="text-lg font-medium text-black">{item.name}</h2>
-              </div>
-            ))}
-            <FormLayoutPortoPlatform />
-          </div>
-
-          <div className="w-4/5 h-full  pt-12 pl-16">
-            <div className="w-full flex flex-col items-start">
-              <div className="flex gap-4 items-center mb-4">
-                <h2 className="text-4xl font-medium text-black">
-                  {dataUser.full_name}
-                </h2>
-                <MdEdit size={32} />
-              </div>
-            </div>
-            <h4 className="text-gray-400 text-[24px] flex justify-start gap-3">
-              {dataUser.job}{" "}
-              <span className="text-gray-400 text-[24px] font-normal">
-                ({dataUser.age})
-              </span>
-            </h4>
-            <div className="flex flex-wrap gap-3">
-              {dataUser.expertise.map((item, index) => (
-                <div
-                  key={index}
-                  className="mt-8 px-16 py-2 bg-blue-50 rounded-3xl"
-                >
-                  <h2 className="text-lg font-medium text-blue-400">
-                    {item.name}
-                  </h2>
-                </div>
-              ))}
-            </div>
-            <div className="w-full mt-8 flex justify-between">
-              <Tabs defaultValue="account" className="w-[400px]">
-                <TabsList>
+    <div className="w-full h-screen">
+      <div className="w-full h-full flex flex-col justify-start items-center pt-16">
+        <h1 className="text-4xl font-semibold "> Project Explore</h1>
+        <p className="w-1/2 text-lg font-light text-center text-gray-200 mt-6">
+          Jorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu
+          turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec
+          fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus
+          elit sed risus est a, mattis tellus. Sed
+        </p>
+        
+        <div className="w-full flex justify-center">
+        <Tabs defaultValue="account" className="">
+                <TabsList  className="">
                   <TabsTrigger
                     style={{ fontSize: "28px" }}
                     value="projectCollaboration"
@@ -224,18 +163,64 @@ async function ProfilePage() {
                   ))}
                 </div>
               </Tabs>
-              <div className="mr-24">
-                <ComboboxDemo />
-              </div>
-            </div>
-            <div className="w-full justify-end inline-flex pr-24 pt-4 ">
-              <FormLayoutEdit/>
-            </div>
-          </div>
+
         </div>
+        
+
+        {/* <div className="w-auto flex flex-col  h-auto bg-white px-3 py-4 shadow-xl rounded-lg ">
+          <div className="flex justify-between">
+            <div>
+              <h1 className="text-xl font-medium "> Proto - Project Collaboration Platform</h1>
+              <h4 className="text-normal font-medium text-gray-300">
+                {" "}
+                Websitee
+              </h4>
+            </div>
+
+            <p className="text-lg font-light">1/3</p>
+          </div>
+          <img
+            className="rounded-full  h-8 w-8  border-solid  shadow-xl ml-auto"
+            src={"/assets/image/user-avatar.png"}
+            alt="profile picture"
+            width={0}
+            height={0}
+            style={{
+              objectFit: "cover",
+              color: "white",
+            }}
+          />
+          <div className="flex justify-between">
+            <div className="flex  gap-3">
+              {progammingLanguages.map(
+                (item: progammingLanguageData, index: number) => (
+                  <div
+                    key={index}
+                    className="mt-8 px-3 py-2 bg-blue-50 rounded-3xl"
+                  >
+                    <h2 className="text-xs font-light text-blue-400">
+                      {item.name}
+                    </h2>
+                  </div>
+                )
+              )}
+            </div>
+            <div className="inline-flex  mt-3">
+          <Button
+            variant="default"
+            size="sm"
+            className="w-auto flex py-1 px-6 cursor-pointer rounded-xl"
+          >
+           
+            <h1 className="font-light text-xs">Join</h1>
+          </Button>
+        </div>
+          </div>
+        </div> */}
+
       </div>
     </div>
   );
 }
 
-export default ProfilePage;
+export default ProjectPage;
