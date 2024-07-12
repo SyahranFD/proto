@@ -6,7 +6,7 @@ import {sendRequestProject} from "@/app/lib/services/api/project";
 
 
 
-function SkillList({ skills, projectId, query  }) {
+function ClientAction({ skills, projectId, query, isJoined, isOwner  }) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
@@ -27,6 +27,12 @@ function SkillList({ skills, projectId, query  }) {
         await sendRequestProject(projectId, query)
 
         console.log(sendRequestProject(projectId, query))
+    }
+
+    if (isJoined || isOwner) {
+        return <div>
+            Upload Project
+        </div>
     }
 
 
@@ -50,4 +56,4 @@ function SkillList({ skills, projectId, query  }) {
     );
 }
 
-export default SkillList;
+export default ClientAction;
