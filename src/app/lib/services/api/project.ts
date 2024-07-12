@@ -27,28 +27,15 @@ async function getAllProject() : Promise<Project[]> {
 
 async function getFilterSearch(query: string) : Promise<Project[]> {
     try {
-        const res = await instance.get<ProjectResponse>(
-            `/project/index`,
-            {
-                params: {
-                    search: query,
-                    is_finish: 0
-                }
-            }
-
-        );
-        return res.data.data;
-    }catch (err) {
-        throw err;
-    }
-}
-
-async function getFilterSearch(query: string) : Promise<Project[]> {
-    try {
         const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
                 params: {
                     search: query,
                     is_finish: 0
