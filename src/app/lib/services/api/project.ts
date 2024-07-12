@@ -8,8 +8,16 @@ import {verifySession} from "@/app/lib/services/session/session";
 
 async function getAllProject() : Promise<Project[]> {
     try {
+        const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
+            {
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
         );
         return res.data.data;
     }catch (err) {
@@ -80,9 +88,17 @@ async function getFeedProject() : Promise<Project[]> {
 
 async function getSoftwareDevelopmentProject() : Promise<Project[]> {
     try {
+        const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
+                
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+
                 params: {
                     category: "software development",
                     is_finish: 0
@@ -98,9 +114,15 @@ async function getSoftwareDevelopmentProject() : Promise<Project[]> {
 
 async function getProjectDesign() : Promise<Project[]> {
     try {
+        const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
                 params: {
                     category: "design",
                     is_finish: 0
@@ -116,9 +138,15 @@ async function getProjectDesign() : Promise<Project[]> {
 
 async function getProject2DAnimation() : Promise<Project[]> {
     try {
+        const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
                 params: {
                     category: "2d animation",
                     is_finish: 0
@@ -134,9 +162,15 @@ async function getProject2DAnimation() : Promise<Project[]> {
 
 async function getProject3DAnimation() : Promise<Project[]> {
     try {
+        const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
                 params: {
                     category: "3d animation",
                     is_finish: 0
