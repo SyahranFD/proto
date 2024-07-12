@@ -237,15 +237,26 @@ async function getProjectById(id: string) : Promise<Project> {
 
 async function storeProject(request: ProjectRequest ) : Promise<ProjectStore> {
     try {
+        const {token} = await verifySession()
         const res = await instance.post<ProjectStoreResponse>(
             `/project/store`,
             {
+                
                 title: request.title,
                 description: request.description,
                 max_participant: request.max_participant,
                 category: request.category,
-                is_paid: request.is_paid
-            }
+                is_paid: request.is_paid,
+
+               
+        },{
+
+            headers:{
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+        }
         );
         return res.data.data;
     }catch (err) {
@@ -257,10 +268,10 @@ async function sendRequestProject(projectId: string, expertise: string) : Promis
     try {
         const {token} = await verifySession()
         const res = await instance.post<ProjectStoreResponse>(
-            `/project/${projectId}/send-request`,
+            `/project/${projectId}/store-skill`,
 
             {
-                expertise: expertise
+                name: expertise
             },
             {
                 headers:{
