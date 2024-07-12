@@ -1,4 +1,4 @@
-import ChipExpertise from "@/app/components/common-components/chip-expertise";
+import ChipExpertise from "@/app/components/common-components/chip-expertise-click";
 import Image from "next/image";
 import {getProjectById, getRecommendationProject} from "@/app/lib/services/api/project";
 import ClientAction from "@/app/(page)/(features-pages)/project/[id]/components/client-action";
