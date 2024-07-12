@@ -1,5 +1,10 @@
+
+"use server"
 import instance from "@/app/lib/services/instance/instance";
 import {Project, ProjectResponse} from "@/app/lib/services/model/project";
+import {getItem} from "@/app/lib/services/session/local-storage";
+import {verifySession} from "@/app/lib/services/session/session";
+
 
 async function getAllProject() : Promise<Project[]> {
     try {
@@ -14,9 +19,16 @@ async function getAllProject() : Promise<Project[]> {
 
 async function getFeedProject() : Promise<Project[]> {
     try {
+        const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
+
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
                 params: {
                     is_finish: 1
                 }
@@ -31,8 +43,16 @@ async function getFeedProject() : Promise<Project[]> {
 
 async function getCurrentProject() : Promise<Project[]> {
     try {
+        const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/show`,
+            {
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
         );
         return res.data.data;
     }catch (err) {
@@ -42,9 +62,16 @@ async function getCurrentProject() : Promise<Project[]> {
 
 async function getRecommendationProject(category: string) : Promise<Project[]> {
     try {
+
+        const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/index`,
             {
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
                 params: {
                     category: category,
                     limit: 4,
@@ -60,8 +87,17 @@ async function getRecommendationProject(category: string) : Promise<Project[]> {
 
 async function getProjectById(id: string) : Promise<Project> {
     try {
+
+        const {token} = await verifySession()
         const res = await instance.get<ProjectResponse>(
             `/project/show/${id}`,
+            {
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+            }
         );
         return res.data.data;
     }catch (err) {
