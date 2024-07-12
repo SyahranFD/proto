@@ -1,7 +1,7 @@
 import ChipExpertise from "@/app/components/common-components/chip-expertise";
-import Image from "next/image";
-import {getProjectById, getRecommendationProject, sendRequestProject} from "@/app/lib/services/api/project";
-import SkillList from "@/app/(page)/(features-pages)/project/[id]/components/skill-list";
+
+import {getProjectById, getRecommendationProject} from "@/app/lib/services/api/project";
+import ClientAction from "@/app/(page)/(features-pages)/project/[id]/components/client-action";
 
 export default async function DetailProject(
     {params, searchParams} : {
@@ -14,17 +14,13 @@ export default async function DetailProject(
 ) {
 
     const query = searchParams?.query || '';
-    const currentPage = Number(searchParams?.page) || 1;
 
     const dataProject = await getProjectById(params.id)
 
     const similarProject = await getRecommendationProject(dataProject.category.toLowerCase())
 
-    const sendRequest = async () => {
-        await sendRequestProject(dataProject.id, query)
-    }
+    console.log(dataProject)
 
-    console.log("CURRENT QUERY: " + query)
 
     return (
         <div className="flex flex-col h-[90vh] justify-between px-[130px] py-[65px]">
@@ -48,7 +44,7 @@ export default async function DetailProject(
 
                     <div>
                         <h2 className="font-semibold text-xl text-primary mb-4">Expertise</h2>
-                        <SkillList skills={dataProject.skill} projectId={dataProject.id} query={query} />
+                        <ClientAction skills={dataProject.skill} projectId={dataProject.id} query={query} isJoined={dataProject.is_joined} isOwner={dataProject.is_owner} />
                     </div>
 
 
